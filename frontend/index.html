@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Santander Territorio Vivo
+  </title>
+
+  <!-- FAVICON -->
+
+  <link rel="icon" type="image/png" href="./assets/images/favicon.png" />
+
+  <!-- LEAFLET -->
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- HEATMAP -->
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <!-- PAPAPARSE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <!-- ESTILOS -->
+
+  <link rel="stylesheet" href="./css/estilos.css" />
+
+</head>
+
+<body>
+
+  <!-- =============================== -->
+  <!-- HEADER -->
+  <!-- =============================== -->
+
+  <header>
+
+    <div class="brand">
+
+      <img src="./assets/images/logo.png" alt="STV Logo" class="logo" />
+
+      <h1>
+        Santander Territorio Vivo
+      </h1>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="menu-buttons">
+
+      <button id="toggleInsights" class="menu-btn">
+        ☰ Insights
+      </button>
+
+      <button id="toggleKpis" class="menu-btn">
+        📊 KPIs
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- =============================== -->
+  <!-- CONTENIDO -->
+  <!-- =============================== -->
+
+  <div class="container">
+
+    <!-- =============================== -->
+    <!-- SIDEBAR -->
+    <!-- =============================== -->
+
+    <aside class="sidebar" id="insightsMenu">
+
+      <h3>
+        🧠 Insights en tiempo real
+      </h3>
+
+      <!-- CARD INSIGHTS -->
+
+      <div class="card">
+
+        <strong>
+          Plataforma energética activa
+        </strong>
+
+        <p>
+          Analizando municipios de Cantabria
+        </p>
+
+      </div>
+
+      <!-- =============================== -->
+      <!-- RANKING -->
+      <!-- =============================== -->
+
+      <div class="ranking-box">
+
+        <h3>
+          🏆 Top municipios energéticos
+        </h3>
+
+        <div id="rankingContainer">
+
+          <div class="ranking-loading">
+
+            Cargando ranking...
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- =============================== -->
+    <!-- MAPA -->
+    <!-- =============================== -->
+
+    <main id="map">
+
+      <!-- =============================== -->
+      <!-- KPIs -->
+      <!-- =============================== -->
+
+      <div class="kpi-box" id="kpiMenu">
+
+        <div class="kpi">
+
+          <span>
+            ⚡ Consumo energético
+          </span>
+
+          <strong>
+            --
+          </strong>
+
+        </div>
+
+        <div class="kpi">
+
+          <span>
+            ☀️ Autoconsumo
+          </span>
+
+          <strong>
+            --
+          </strong>
+
+        </div>
+
+        <div class="kpi">
+
+          <span>
+            🏭 Infraestructura energética
+          </span>
+
+          <strong>
+            --
+          </strong>
+
+        </div>
+
+      </div>
+      <!-- =============================== -->
+      <!-- LEYENDA -->
+      <!-- =============================== -->
+
+      <div class="legend-box">
+
+        <h4>
+          ⚡ Intensidad energética
+        </h4>
+
+        <div class="legend-item">
+
+          <span
+            class="legend-color"
+            style="background:#22c55e"
+          ></span>
+
+          <p>
+            Baja actividad
+          </p>
+
+        </div>
+
+        <div class="legend-item">
+
+          <span
+            class="legend-color"
+            style="background:#eab308"
+          ></span>
+
+          <p>
+            Actividad media
+          </p>
+
+        </div>
+
+        <div class="legend-item">
+
+          <span
+            class="legend-color"
+            style="background:#f97316"
+          ></span>
+
+          <p>
+            Actividad media-alta
+          </p>
+
+        </div>
+
+        <div class="legend-item">
+
+          <span
+            class="legend-color"
+            style="background:#dc2626"
+          ></span>
+
+          <p>
+            Alta presión energética
+          </p>
+
+        </div>
+
+        <hr>
+
+        <p class="legend-extra">
+
+          El tamaño del círculo representa
+          el volumen energético detectado
+          en cada municipio.
+
+        </p>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =============================== -->
+  <!-- LÓGICA -->
+  <!-- =============================== -->
+
+  <script type="module" src="./js/Logica.js"></script>
+
+</body>
+
+</html>

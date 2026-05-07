@@ -1,0 +1,812 @@
+/* ===============================
+RESET
+=============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===============================
+HTML + BODY
+=============================== */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===============================
+BODY
+=============================== */
+
+body {
+
+  font-family: Arial, sans-serif;
+
+  background-color: #edf4f8;
+
+  color: #1e293b;
+
+  overflow: hidden;
+
+}
+
+/* ===============================
+BRAND
+=============================== */
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  min-width: 0;
+
+}
+
+/* ===============================
+LOGO
+=============================== */
+
+.logo {
+
+  width: clamp(55px, 4vw, 85px);
+
+  height: clamp(55px, 4vw, 85px);
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+}
+
+/* ===============================
+HEADER
+=============================== */
+
+header {
+
+  min-height: 82px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #005f99,
+      #007acc
+    );
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 12px 18px;
+
+  gap: 14px;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15);
+
+  position: relative;
+
+  z-index: 2000;
+
+}
+
+header h1 {
+
+  color: white;
+
+  font-size:
+    clamp(18px, 2vw, 32px);
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+/* ===============================
+BOTONES
+=============================== */
+
+.menu-buttons {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+}
+
+.menu-btn {
+
+  background:
+    rgba(255,255,255,0.15);
+
+  border: none;
+
+  color: white;
+
+  cursor: pointer;
+
+  border-radius: 12px;
+
+  transition: 0.2s ease;
+
+  padding:
+    clamp(8px, 1vw, 14px)
+    clamp(14px, 2vw, 24px);
+
+  font-size:
+    clamp(14px, 1vw, 18px);
+
+  font-weight: 600;
+
+  min-width: 120px;
+
+}
+
+.menu-btn:hover {
+
+  background:
+    rgba(255,255,255,0.28);
+
+  transform: translateY(-1px);
+
+}
+
+/* ===============================
+LAYOUT
+=============================== */
+
+.container {
+
+  display: flex;
+
+  width: 100%;
+
+  height: calc(100dvh - 82px);
+
+}
+
+/* ===============================
+SIDEBAR
+=============================== */
+
+.sidebar {
+
+  width: 340px;
+
+  background-color: #f8fcff;
+
+  border-right:
+    1px solid #d9e3ea;
+
+  padding: 20px;
+
+  overflow-y: auto;
+
+  z-index: 1000;
+
+}
+
+.sidebar h3 {
+
+  font-size: 18px;
+
+  margin-bottom: 20px;
+
+  color: #005f99;
+
+}
+
+/* ===============================
+CARDS
+=============================== */
+
+.card {
+
+  background: white;
+
+  border-left:
+    5px solid #00a86b;
+
+  border-radius: 12px;
+
+  padding: 14px;
+
+  margin-bottom: 14px;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s ease;
+
+}
+
+.card:hover {
+
+  transform: translateY(-2px);
+
+}
+
+.card strong {
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #0f172a;
+
+  font-size: 15px;
+
+}
+
+.card p {
+
+  color: #475569;
+
+  font-size: 14px;
+
+  line-height: 1.4;
+
+}
+
+/* ===============================
+RANKING
+=============================== */
+
+.ranking-box {
+
+  margin-top: 24px;
+
+}
+
+.ranking-item {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 14px;
+
+  margin-bottom: 12px;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.07);
+
+  border-left:
+    5px solid #007acc;
+
+  transition: 0.2s ease;
+
+}
+
+.ranking-item:hover {
+
+  transform: translateY(-2px);
+
+}
+
+.ranking-item span {
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #1e293b;
+
+}
+
+.ranking-item strong {
+
+  font-size: 18px;
+
+  color: #007acc;
+
+}
+
+.ranking-loading {
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 16px;
+
+  text-align: center;
+
+  color: #64748b;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.06);
+
+}
+
+/* ===============================
+MAPA
+=============================== */
+
+#map {
+
+  flex: 1;
+
+  position: relative;
+
+  height: 100%;
+
+}
+
+/* ===============================
+KPIs
+=============================== */
+
+.kpi-box {
+
+  position: absolute;
+
+  top: 20px;
+
+  right: 20px;
+
+  display: flex;
+
+  gap: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(6px);
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.15);
+
+  z-index: 1200;
+
+}
+
+.kpi {
+
+  min-width: 140px;
+
+  padding: 10px;
+
+  border-radius: 12px;
+
+  background: #f8fbfd;
+
+  transition: 0.2s ease;
+
+}
+
+.kpi:hover {
+
+  transform: translateY(-2px);
+
+}
+
+.kpi span {
+
+  display: block;
+
+  font-size: 13px;
+
+  color: #64748b;
+
+  margin-bottom: 8px;
+
+}
+
+.kpi strong {
+
+  font-size: 24px;
+
+  color: #007acc;
+
+  font-weight: 700;
+
+}
+
+/* ===============================
+LEYENDA
+=============================== */
+
+.legend-box {
+
+  position: absolute;
+
+  bottom: 20px;
+  right: 20px;
+
+  width: 240px;
+
+  background: rgba(255,255,255,0.96);
+
+  backdrop-filter: blur(8px);
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+
+  z-index: 1200;
+
+}
+
+.legend-box h4 {
+
+  margin-bottom: 16px;
+
+  color: #0f172a;
+
+  font-size: 16px;
+
+}
+
+.legend-item {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+
+}
+
+.legend-color {
+
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+
+  flex-shrink: 0;
+
+}
+
+.legend-item p {
+
+  font-size: 14px;
+
+  color: #334155;
+
+}
+
+.legend-extra {
+
+  margin-top: 12px;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  color: #64748b;
+
+}
+
+/* ===============================
+UTILIDADES
+=============================== */
+
+.hidden {
+
+  display: none;
+
+}
+
+/* ===============================
+RESPONSIVE TABLET
+=============================== */
+
+@media (max-width: 1000px) {
+
+  .sidebar {
+
+    width: 280px;
+
+  }
+
+  .kpi-box {
+
+    flex-direction: column;
+
+    right: 12px;
+
+    top: 12px;
+
+  }
+
+  .kpi {
+
+    min-width: 120px;
+
+  }
+
+}
+
+/* ===============================
+RESPONSIVE MOBILE
+=============================== */
+
+@media (max-width: 768px) {
+
+  /* HEADER */
+
+  header {
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 12px;
+
+    gap: 12px;
+
+  }
+
+  .brand {
+
+    width: 100%;
+
+  }
+
+  header h1 {
+
+    font-size: 20px;
+
+  }
+
+  /* BOTONES */
+
+  .menu-buttons {
+
+    width: 100%;
+
+    justify-content: space-between;
+
+  }
+
+  .menu-btn {
+
+    flex: 1;
+
+    min-width: 0;
+
+  }
+
+  /* LAYOUT */
+
+  .container {
+
+    flex-direction: column;
+
+    height: calc(100dvh - 140px);
+
+  }
+
+  /* SIDEBAR */
+
+  .sidebar {
+
+    width: 100%;
+
+    height: 260px;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid #d9e3ea;
+
+  }
+
+  /* MAPA */
+
+  #map {
+
+    height: calc(100dvh - 400px);
+
+  }
+
+  /* KPIs */
+
+  .kpi-box {
+
+    left: 10px;
+
+    right: 10px;
+
+    top: 10px;
+
+    flex-direction: row;
+
+    gap: 8px;
+
+    padding: 10px;
+
+  }
+
+  .kpi {
+
+    flex: 1;
+
+    min-width: 0;
+
+  }
+
+  .kpi span {
+
+    font-size: 10px;
+
+  }
+
+  .kpi strong {
+
+    font-size: 16px;
+
+  }
+
+  /* RANKING */
+
+  .ranking-item span {
+
+    font-size: 12px;
+
+  }
+
+  .ranking-item strong {
+
+    font-size: 15px;
+
+  }
+
+  /* =============================== */
+  /* RESPONSIVE LEYENDA */
+  /* =============================== */
+
+  .legend-box {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    padding: 0;
+
+    bottom: 16px;
+    right: 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+  }
+
+  /* ICONO */
+
+  .legend-box::before {
+
+    content: "⚡";
+
+    font-size: 24px;
+
+  }
+
+  /* OCULTAR CONTENIDO */
+
+  .legend-box h4,
+  .legend-box .legend-item,
+  .legend-box .legend-extra,
+  .legend-box hr {
+
+    display: none;
+
+  }
+
+  /* EXPANDIR */
+
+  .legend-box:hover,
+  .legend-box:active {
+
+    width: 240px;
+    height: auto;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    display: block;
+
+  }
+
+  /* QUITAR ICONO */
+
+  .legend-box:hover::before,
+  .legend-box:active::before {
+
+    display: none;
+
+  }
+
+  /* MOSTRAR CONTENIDO */
+
+  .legend-box:hover h4,
+  .legend-box:active h4 {
+
+    display: block;
+
+    margin-bottom: 16px;
+
+  }
+
+  .legend-box:hover .legend-item,
+  .legend-box:active .legend-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+  }
+
+  .legend-box:hover hr,
+  .legend-box:active hr {
+
+    display: block;
+
+    margin: 12px 0;
+
+  }
+
+  .legend-box:hover .legend-extra,
+  .legend-box:active .legend-extra {
+
+    display: block;
+
+  }
+
+}

@@ -1,0 +1,133 @@
+# =========================
+# SISTEMA OPERATIVO
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# EDITORES / IDEs
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# LOGS
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# ARCHIVOS TEMPORALES
+# =========================
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# =========================
+# NODE / JAVASCRIPT
+# =========================
+node_modules/
+dist/
+build/
+coverage/
+.npm/
+.cache/
+
+# =========================
+# JAVA
+# =========================
+target/
+bin/
+out/
+build/
+.gradle/
+.mvn/
+
+# Archivos compilados Java
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# CSVs / JSON PESADOS
+# =========================
+
+# Ignorar TODOS los CSV y JSON
+*.csv
+*.json
+
+# Permitir archivos concretos si hace falta
+#!data/ejemplo.csv
+#!config/config.json
+
+# Directorios típicos de datasets
+datasets/
+data/
+uploads/
+exports/
+temp_data/
+
+# =========================
+# ARCHIVOS COMPRIMIDOS
+# =========================
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# =========================
+# VARIABLES DE ENTORNO
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# BACKUPS
+# =========================
+backup/
+backups/
+
+# =========================
+# TESTING
+# =========================
+coverage/
+test-output/
+
+# =========================
+# FRONTEND CACHE
+# =========================
+.parcel-cache/
+.next/
+.nuxt/
+
+# =========================
+# MULTIMEDIA PESADA
+# =========================
+*.mp4
+*.mov
+*.avi
+*.psd
+*.ai
+
+# =========================
+# BASES DE DATOS LOCALES
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# CLAVES / CERTIFICADOS
+# =========================
+*.key
+*.pem
+*.crt
