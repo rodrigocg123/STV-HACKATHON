@@ -22,6 +22,7 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <!-- HEATMAP -->
+
   <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 
   <!-- PAPAPARSE -->
@@ -44,215 +45,449 @@
 
     <div class="brand">
 
-      <img src="./assets/images/logo.png" alt="STV Logo" class="logo" />
+      <img
+        src="./assets/images/logo.png"
+        alt="STV Logo"
+        class="logo"
+      />
 
-      <h1>
-        Santander Territorio Vivo
-      </h1>
+      <div>
 
-    </div>
+        <h1>
+          Santander Territorio Vivo
+        </h1>
 
-    <!-- BOTONES -->
+        <p class="subtitle">
+          Centro de Inteligencia Urbana
+        </p>
 
-    <div class="menu-buttons">
-
-      <button id="toggleInsights" class="menu-btn">
-        ☰ Insights
-      </button>
-
-      <button id="toggleKpis" class="menu-btn">
-        📊 KPIs
-      </button>
+      </div>
 
     </div>
+
+    <!-- NAV -->
+
+    <nav class="sector-nav">
+
+      <a href="#movilidad">
+        🚗 Movilidad
+      </a>
+
+      <a href="#sostenibilidad">
+        🌱 Sostenibilidad
+      </a>
+
+      <a href="#comercio">
+        🏪 Comercio Local
+      </a>
+
+      <a href="#global">
+        🧠 Insights
+      </a>
+
+    </nav>
 
   </header>
 
   <!-- =============================== -->
-  <!-- CONTENIDO -->
+  <!-- MOVILIDAD -->
   <!-- =============================== -->
 
-  <div class="container">
+  <section id="movilidad" class="sector-section movilidad">
 
-    <!-- =============================== -->
-    <!-- SIDEBAR -->
-    <!-- =============================== -->
+    <div class="section-header">
 
-    <aside class="sidebar" id="insightsMenu">
+      <h2>
+        🚗 Movilidad Inteligente
+      </h2>
 
-      <h3>
-        🧠 Insights en tiempo real
-      </h3>
+      <p>
+        Monitorización del tráfico urbano, congestión y zonas de alta presión.
+      </p>
 
-      <!-- CARD INSIGHTS -->
+    </div>
+
+    <!-- KPIs -->
+
+    <div class="kpi-grid">
+
+      <div class="kpi">
+
+        <span>
+          🚦 Congestión urbana
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+      <div class="kpi">
+
+        <span>
+          🚗 Flujo de tráfico
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+      <div class="kpi">
+
+        <span>
+          🔥 Zonas críticas
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
+    <!-- FILTROS MOVILIDAD -->
+
+    <div class="mobility-filters">
+
+      <button id="btnBus">
+        🚌 BUS
+      </button>
+
+      <button id="btnBici">
+        🚲 BICI
+      </button>
+
+      <button id="btnRecarga">
+        ⚡ RECARGA
+      </button>
+
+      <button id="btnPMR">
+        ♿ PMR
+      </button>
+
+      <button id="btnZona30">
+        🚗 ZONA 30
+      </button>
+
+    </div>
+
+    <!-- MAPA -->
+
+    <div id="mapMovilidad" class="sector-map"></div>
+
+    <!-- INSIGHTS -->
+
+    <div class="insights-box">
 
       <div class="card">
 
         <strong>
-          Plataforma energética activa
+          ⚠ Congestión detectada
         </strong>
 
         <p>
-          Analizando municipios de Cantabria
+          Identificadas zonas con alta intensidad de tráfico en Santander centro.
         </p>
 
       </div>
 
-      <!-- =============================== -->
-      <!-- RANKING -->
-      <!-- =============================== -->
+    </div>
 
-      <div class="ranking-box">
+  </section>
 
-        <h3>
-          🏆 Top municipios energéticos
-        </h3>
+  <!-- =============================== -->
+  <!-- SOSTENIBILIDAD -->
+  <!-- =============================== -->
 
-        <div id="rankingContainer">
+  <section id="sostenibilidad" class="sector-section sostenibilidad">
 
-          <div class="ranking-loading">
+    <div class="section-header">
 
-            Cargando ranking...
+      <h2>
+        🌱 Sostenibilidad Energética
+      </h2>
 
-          </div>
+      <p>
+        Consumo energético, autoconsumo y transición sostenible.
+      </p>
 
-        </div>
+    </div>
+
+    <!-- KPIs -->
+
+    <div class="kpi-grid">
+
+      <div class="kpi">
+
+        <span>
+          ⚡ Consumo energético
+        </span>
+
+        <strong>
+          --
+        </strong>
 
       </div>
 
-    </aside>
+      <div class="kpi">
 
-    <!-- =============================== -->
+        <span>
+          ☀️ Autoconsumo
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+      <div class="kpi">
+
+        <span>
+          🏭 Infraestructura
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
     <!-- MAPA -->
-    <!-- =============================== -->
 
-    <main id="map">
+    <div id="mapSostenibilidad" class="sector-map"></div>
 
-      <!-- =============================== -->
-      <!-- KPIs -->
-      <!-- =============================== -->
+    <!-- LEYENDA -->
 
-      <div class="kpi-box" id="kpiMenu">
+    <div class="legend-box">
 
-        <div class="kpi">
+      <h4>
+        ⚡ Intensidad energética
+      </h4>
 
-          <span>
-            ⚡ Consumo energético
-          </span>
+      <div class="legend-item">
 
-          <strong>
-            --
-          </strong>
+        <span
+          class="legend-color"
+          style="background:#22c55e"
+        ></span>
 
-        </div>
-
-        <div class="kpi">
-
-          <span>
-            ☀️ Autoconsumo
-          </span>
-
-          <strong>
-            --
-          </strong>
-
-        </div>
-
-        <div class="kpi">
-
-          <span>
-            🏭 Infraestructura energética
-          </span>
-
-          <strong>
-            --
-          </strong>
-
-        </div>
-
-      </div>
-      <!-- =============================== -->
-      <!-- LEYENDA -->
-      <!-- =============================== -->
-
-      <div class="legend-box">
-
-        <h4>
-          🚗 Intensidad energética
-        </h4>
-
-        <div class="legend-item">
-
-          <span
-            class="legend-color"
-            style="background:#22c55e"
-          ></span>
-
-          <p>
-            Baja actividad
-          </p>
-
-        </div>
-
-        <div class="legend-item">
-
-          <span
-            class="legend-color"
-            style="background:#eab308"
-          ></span>
-
-          <p>
-            Actividad media
-          </p>
-
-        </div>
-
-        <div class="legend-item">
-
-          <span
-            class="legend-color"
-            style="background:#f97316"
-          ></span>
-
-          <p>
-            Actividad media-alta
-          </p>
-
-        </div>
-
-        <div class="legend-item">
-
-          <span
-            class="legend-color"
-            style="background:#dc2626"
-          ></span>
-
-          <p>
-            Alta presión energética
-          </p>
-
-        </div>
-
-        <hr>
-
-        <p class="legend-extra">
-
-          El tamaño del círculo representa
-          el volumen energético detectado
-          en cada municipio.
-
+        <p>
+          Baja actividad
         </p>
 
       </div>
-    </main>
 
-  </div>
+      <div class="legend-item">
+
+        <span
+          class="legend-color"
+          style="background:#eab308"
+        ></span>
+
+        <p>
+          Actividad media
+        </p>
+
+      </div>
+
+      <div class="legend-item">
+
+        <span
+          class="legend-color"
+          style="background:#f97316"
+        ></span>
+
+        <p>
+          Actividad media-alta
+        </p>
+
+      </div>
+
+      <div class="legend-item">
+
+        <span
+          class="legend-color"
+          style="background:#dc2626"
+        ></span>
+
+        <p>
+          Alta presión energética
+        </p>
+
+      </div>
+
+      <hr>
+
+      <p class="legend-extra">
+
+        El tamaño del círculo representa
+        el volumen energético detectado
+        en cada municipio.
+
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- =============================== -->
+  <!-- COMERCIO LOCAL -->
+  <!-- =============================== -->
+
+  <section id="comercio" class="sector-section comercio">
+
+    <div class="section-header">
+
+      <h2>
+        🏪 Comercio Local
+      </h2>
+
+      <p>
+        Actividad económica, oportunidades comerciales y zonas dinámicas.
+      </p>
+
+    </div>
+
+    <!-- KPIs -->
+
+    <div class="kpi-grid">
+
+      <div class="kpi">
+
+        <span>
+          📈 Actividad comercial
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+      <div class="kpi">
+
+        <span>
+          🏬 Zonas activas
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+      <div class="kpi">
+
+        <span>
+          💡 Oportunidades
+        </span>
+
+        <strong>
+          --
+        </strong>
+
+      </div>
+
+    </div>
+
+    <!-- MAPA -->
+
+    <div id="mapComercio" class="sector-map"></div>
+
+    <!-- RANKING -->
+
+    <div class="ranking-box">
+
+      <h3>
+        🏆 Municipios con mayor actividad
+      </h3>
+
+      <div id="rankingContainer">
+
+        <div class="ranking-loading">
+
+          Cargando ranking...
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =============================== -->
+  <!-- INSIGHTS GLOBALES -->
+  <!-- =============================== -->
+
+  <section id="global" class="global-section">
+
+    <div class="section-header">
+
+      <h2>
+        🧠 Insights Globales
+      </h2>
+
+      <p>
+        Relación entre movilidad, sostenibilidad y actividad económica.
+      </p>
+
+    </div>
+
+    <div class="global-grid">
+
+      <div class="card">
+
+        <strong>
+          🚗 + 🏪 Movilidad y comercio
+        </strong>
+
+        <p>
+          Las zonas con mayor movilidad presentan una mayor actividad económica.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>
+          ⚡ + 🌱 Consumo y sostenibilidad
+        </strong>
+
+        <p>
+          Municipios con mayor presión energética requieren estrategias de transición sostenible.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>
+          🌍 Inteligencia territorial
+        </strong>
+
+        <p>
+          La integración de datos permite identificar oportunidades urbanas estratégicas.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
 
   <!-- =============================== -->
   <!-- LÓGICA -->
   <!-- =============================== -->
 
-  <script type="module" src="./js/Logica.js"></script>
+  <script type="module" src="./js/main.js"></script>
 
 </body>
 
