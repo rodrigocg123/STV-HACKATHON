@@ -93,6 +93,21 @@ const csvFiles = [
   {
     name: 'puntosSuministro',
     path: './data/puntos-de-suministro-por-tipologia-viesgo.csv'
+  },
+
+  {
+    name: 'nuevosPuntosRecarga',
+    path: './data/3-nuevos-puntos-de-recarga-de-vehiculo-electrico-viesgo.csv'
+  },
+  
+  {
+    name: 'puntosPublicosRecarga',
+    path: './data/4-puntos_publicos_de_recarga_de_vehiculos_electricos-viesgo.csv'
+  },
+  
+  {
+    name: 'consumoRecarga',
+    path: './data/5-consumo-mensual-de-puntos-de-recarga-de-ve-viesgo.csv'
   }
 
 ];
@@ -215,29 +230,29 @@ function obtenerRadio(total) {
 
   if (total > 400) {
 
-    return 35;
+    return 20;
 
   }
 
   if (total > 250) {
 
-    return 28;
+    return 16;
 
   }
 
   if (total > 150) {
 
-    return 22;
+    return 13;
 
   }
 
   if (total > 80) {
 
-    return 16;
+    return 10;
 
   }
 
-  return 10;
+  return 6;
 
 }
 
@@ -327,62 +342,64 @@ function cargarCSV(file) {
       if (file.name === 'puntosSuministro') {
 
         const municipiosAgrupados = {};
+      
+      
 
-datosCantabria.forEach(item => {
+        datosCantabria.forEach(item => {
 
-  const municipio =
-    (
-      item.Municipio ||
-      item.municipio ||
-      ''
-    ).trim();
+          const municipio =
+            (
+              item.Municipio ||
+              item.municipio ||
+              ''
+            ).trim();
 
-  if (!municipio) return;
+          if (!municipio) return;
 
-  if (!municipiosAgrupados[municipio]) {
+          if (!municipiosAgrupados[municipio]) {
 
-    municipiosAgrupados[municipio] = 0;
+            municipiosAgrupados[municipio] = 0;
 
-  }
+          }
 
-  // ===============================
-  // MUNICIPIOS CON MAYOR ACTIVIDAD
-  // ===============================
+          // ===============================
+          // MUNICIPIOS CON MAYOR ACTIVIDAD
+          // ===============================
 
-  const municipiosPotentes = [
+          const municipiosPotentes = [
 
-    'Santander',
-    'Torrelavega',
-    'Camargo',
-    'Castro-Urdiales',
-    'El Astillero',
-    'Piélagos',
-    'Santa Cruz de Bezana',
-    'Laredo'
+            'Santander',
+            'Torrelavega',
+            'Camargo',
+            'Castro-Urdiales',
+            'El Astillero',
+            'Piélagos',
+            'Santa Cruz de Bezana',
+            'Laredo'
 
-  ];
+          ];
 
-  // ===============================
-  // PESO ENERGÉTICO
-  // ===============================
+          // ===============================
+          // PESO ENERGÉTICO
+          // ===============================
 
-  if (
-    municipiosPotentes.includes(municipio)
-  ) {
+          if (
+            municipiosPotentes.includes(municipio)
+          ) {
 
-    municipiosAgrupados[municipio] +=
-      Math.floor(Math.random() * 40) + 25;
+            municipiosAgrupados[municipio] +=
+              Math.floor(Math.random() * 40) + 25;
 
-  }
+          }
 
-  else {
+          else {
 
-    municipiosAgrupados[municipio] +=
-      Math.floor(Math.random() * 8) + 1;
+            municipiosAgrupados[municipio] +=
+              Math.floor(Math.random() * 8) + 1;
 
-  }
+          }
 
-});
+        });
 
         // ===============================
         // RANKING
@@ -491,7 +508,7 @@ datosCantabria.forEach(item => {
                 color: color,
                 fillColor: color,
                 fillOpacity: 0.75,
-                weight: 2
+                weight: 1
               }
             )
 
@@ -512,7 +529,7 @@ datosCantabria.forEach(item => {
                 <hr>
 
                 <p>
-                  ⚡ Intensidad energética:
+                  🚗 Intensidad energética:
                   <strong>${nivel}</strong>
                 </p>
 
@@ -541,12 +558,57 @@ datosCantabria.forEach(item => {
           {
             radius: 35,
             blur: 25,
-            maxZoom: 10
+            maxZoom: 10,
+            minOpacity: 0.25,
+            gradient: {
+              0.2: '#6ee7b7',
+              0.4: '#34d399',
+              0.6: '#fcd34d',
+              0.8: '#fb923c',
+              1.0: '#ef4444'
+            }
+
           }
         ).addTo(map);
 
       }
 
+        // ===============================
+        // PINTAR PUNTOS DE RECARGA
+        // ===============================
+
+        if (['nuevosPuntosRecarga', 'puntosPublicosRecarga', 'consumoRecarga'].includes(file.name)) {
+          
+          const municipiosConIcono = new Set();
+
+          datosCantabria.forEach(item => {
+            const municipio = (item.Municipio || item.municipio || '').trim();
+            const coords = coordenadasMunicipios[municipio];
+
+            if (coords && !municipiosConIcono.has(municipio)) {
+              // Creamos el icono "eléctrico"
+              const electricIcon = L.divIcon({
+                className: 'electric-marker',
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+              });
+
+              // Añadimos el marcador al mapa
+              L.marker(coords, { icon: electricIcon })
+                .addTo(map)
+                .bindPopup(`
+                  <div style="text-align:center">
+                    <h4 style="margin:0; color:#007acc;">⚡ Punto de Recarga</h4>
+                    <p><strong>Municipio:</strong> ${municipio}</p>
+                    <p><strong>Tipo:</strong> ${file.name === 'nuevosPuntosRecarga' ? 'Nueva Instalación' : 'Punto Público'}</p>
+                    ${item['Potencia Máxima Admisible (kW)'] ? `<p>Potencia: ${item['Potencia Máxima Admisible (kW)']} kW</p>` : ''}
+                  </div>
+                `);
+
+                municipiosConIcono.add(municipio);
+            }
+          });
+        }
     },
 
     error: function(error) {
