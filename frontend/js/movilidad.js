@@ -17,516 +17,791 @@ const capaPMR = L.layerGroup();
 const capaZBE = L.layerGroup();
 
 const capaCamarasZBE = L.layerGroup();
+
+const capaHeatMovilidad = L.layerGroup();
+
+// ===============================
+// ICONOS
+// ===============================
+
+const iconoBici = L.divIcon({
+
+  className:
+  "bike-marker",
+
+  html:
+  "🚲",
+
+  iconSize:
+  [28, 28]
+
+});
+
+const iconoCamara = L.divIcon({
+
+  className:
+  "camera-marker",
+
+  html:
+  "📷",
+
+  iconSize:
+  [26, 26]
+
+});
+
+// ===============================
+// POPUP PREMIUM
+// ===============================
+
+function crearPopup({
+
+  color,
+  titulo,
+  contenido
+
+}) {
+
+  return `
+
+    <div class="premium-popup">
+
+      <div class="popup-header">
+
+        <h3 style="color:${color}">
+          ${titulo}
+        </h3>
+
+      </div>
+
+      <div class="popup-body">
+
+        ${contenido}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+// ===============================
+// TOGGLE CAPAS
+// ===============================
+
+function toggleLayer(layer) {
+
+  if (
+    mapMovilidad.hasLayer(layer)
+  ) {
+
+    mapMovilidad.removeLayer(
+      layer
+    );
+
+  } else {
+
+    mapMovilidad.addLayer(
+      layer
+    );
+
+  }
+
+}
+
+// ===============================
+// TOGGLE MULTI CAPAS
+// ===============================
+
+function toggleMultipleLayers(
+  layers
+) {
+
+  const activa =
+    mapMovilidad.hasLayer(
+      layers[0]
+    );
+
+  layers.forEach((layer) => {
+
+    if (activa) {
+
+      mapMovilidad.removeLayer(
+        layer
+      );
+
+    } else {
+
+      mapMovilidad.addLayer(
+        layer
+      );
+
+    }
+
+  });
+
+}
+
+// ===============================
+// HEATMAP MOVILIDAD
+// ===============================
+
+const heatData = [
+
+  [43.4623, -3.8099, 0.9],
+  [43.4635, -3.8084, 0.8],
+  [43.4652, -3.8041, 0.7],
+  [43.4589, -3.8172, 0.85],
+  [43.4597, -3.8125, 0.75],
+  [43.4668, -3.8015, 0.95],
+  [43.4558, -3.8241, 0.6]
+
+];
+
+const heatLayer = L.heatLayer(
+
+  heatData,
+
+  {
+
+    radius:
+    34,
+
+    blur:
+    28,
+
+    maxZoom:
+    17,
+
+    gradient: {
+
+      0.2:
+      "#00bfff",
+
+      0.4:
+      "#00ffae",
+
+      0.6:
+      "#ffee00",
+
+      0.8:
+      "#ff7b00",
+
+      1:
+      "#ff2d55"
+
+    }
+
+  }
+
+);
+
+capaHeatMovilidad.addLayer(
+  heatLayer
+);
+
+mapMovilidad.addLayer(
+  capaHeatMovilidad
+);
+
 // ===============================
 // FETCH BUS
 // ===============================
 
-fetch("http://localhost:3000/api/bus")
+fetch(
+  "http://localhost:3000/api/bus"
+)
 
-  .then(response => response.json())
+.then(
+  response => response.json()
+)
 
-  .then(data => {
+.then(
+  data => {
 
-    data.resources.forEach((parada) => {
+    data.resources.forEach(
+      (parada) => {
 
-      const lat = parseFloat(
-        parada["wgs84_pos:lat"]
-      );
+        const lat = parseFloat(
+          parada["wgs84_pos:lat"]
+        );
 
-      const lng = parseFloat(
-        parada["wgs84_pos:long"]
-      );
+        const lng = parseFloat(
+          parada["wgs84_pos:long"]
+        );
 
-      if (!lat || !lng) return;
+        if (!lat || !lng) return;
 
-      const marker = L.circleMarker(
-        [lat, lng],
-        {
-          radius: 7,
-          color: "#2563eb",
-          fillColor: "#2563eb",
-          fillOpacity: 0.85,
-          weight: 2
-        }
-      );
+        const marker = L.circleMarker(
 
-      marker.bindPopup(`
-        <strong>🚌 Parada BUS</strong><br>
-        ${parada["vivo:address1"] || "Sin dirección"}
-      `);
+          [lat, lng],
 
-      capaBus.addLayer(marker);
+          {
 
-    });
+            radius:
+            7,
 
-  })
+            color:
+            "#2563eb",
 
-  .catch(error => {
+            fillColor:
+            "#2563eb",
+
+            fillOpacity:
+            0.9,
+
+            weight:
+            2
+
+          }
+
+        );
+
+        marker.bindPopup(
+
+          crearPopup({
+
+            color:
+            "#2563eb",
+
+            titulo:
+            "🚌 Parada BUS",
+
+            contenido:
+            `
+            <p>
+              ${parada["vivo:address1"] || "Sin dirección"}
+            </p>
+            `
+
+          })
+
+        );
+
+        capaBus.addLayer(
+          marker
+        );
+
+      }
+    );
+
+  }
+)
+
+.catch(
+  error => {
 
     console.error(
-      "Error cargando BUS:",
+      "BUS ERROR:",
       error
     );
 
-  });
+  }
+);
 
 // ===============================
 // FETCH BICI
 // ===============================
 
-fetch("http://localhost:3000/api/bici")
+fetch(
+  "http://localhost:3000/api/bici"
+)
 
-  .then(response => response.json())
+.then(
+  response => response.json()
+)
 
-  .then(data => {
+.then(
+  data => {
 
     const stations =
       data.data.stations;
 
-    stations.forEach((station) => {
+    stations.forEach(
+      (station) => {
 
-      const lat = station.lat;
+        if (
+          !station.lat ||
+          !station.lon
+        ) return;
 
-      const lon = station.lon;
+        const marker = L.marker(
 
-      if (!lat || !lon) return;
+          [
+            station.lat,
+            station.lon
+          ],
 
-      const iconoBici = L.divIcon({
+          {
+            icon:
+            iconoBici
+          }
 
-        className: "bike-marker",
+        );
 
-        html: "🚲",
+        marker.bindPopup(
 
-        iconSize: [28, 28]
+          crearPopup({
 
-      });
+            color:
+            "#16a34a",
 
-      const marker = L.marker(
-        [lat, lon],
-        {
-          icon: iconoBici
-        }
-      );
+            titulo:
+            `🚲 ${station.name}`,
 
-      marker.bindPopup(`
+            contenido:
+            `
+            <p>
+              🅿 Capacidad:
+              <strong>
+                ${station.capacity || "N/A"}
+              </strong>
+            </p>
+            `
 
-        <div style="min-width:220px">
+          })
 
-          <h3 style="
-            margin-bottom:8px;
-            color:#16a34a;
-          ">
-            🚲 ${station.name}
-          </h3>
+        );
 
-          <p>
-            🅿 Capacidad:
-            <strong>
-              ${station.capacity || "N/A"}
-            </strong>
-          </p>
+        capaBici.addLayer(
+          marker
+        );
 
-        </div>
+      }
+    );
 
-      `);
+  }
+)
 
-      capaBici.addLayer(marker);
-
-    });
-
-  })
-
-  .catch(error => {
+.catch(
+  error => {
 
     console.error(
-      "Error cargando BICI:",
+      "BICI ERROR:",
       error
     );
 
-  });
+  }
+);
+
 // ===============================
-// FETCH CARRIL BICI
+// CARRIL BICI
 // ===============================
 
-fetch("./data/carril_bici.json")
+fetch(
+  "./data/carril_bici.json"
+)
 
-  .then(response => response.json())
+.then(
+  response => response.json()
+)
 
-  .then(data => {
+.then(
+  data => {
 
     const carriles =
       data.resources || [];
 
-    carriles.forEach((carril) => {
+    carriles.forEach(
+      (carril) => {
 
-      const wkt =
-        carril["ayto:WKT"];
+        const wkt =
+          carril["ayto:WKT"];
 
-      if (!wkt) return;
+        if (!wkt) return;
 
-      // ===============================
-      // EXTRAER COORDENADAS
-      // ===============================
+        const textoCoords =
+          wkt
 
-      const textoCoords =
-        wkt
-          .replace("LINESTRING (", "")
-          .replace("LINESTRING(", "")
-          .replace(")", "");
+          .replace(
+            "LINESTRING (",
+            ""
+          )
 
-      const puntos =
-        textoCoords
+          .replace(
+            "LINESTRING(",
+            ""
+          )
+
+          .replace(
+            ")",
+            ""
+          );
+
+        const puntos =
+
+          textoCoords
+
           .split(",")
 
-          .map(punto => {
+          .map(
+            punto => {
 
-            const coords =
-              punto.trim().split(" ");
+              const coords =
+                punto
+                .trim()
+                .split(" ");
 
-            const x =
-              parseFloat(coords[0]);
+              const convertido = proj4(
 
-            const y =
-              parseFloat(coords[1]);
+                "EPSG:25830",
 
-            // ===============================
-            // UTM30N -> WGS84
-            // ===============================
+                "EPSG:4326",
 
-            const convertido = proj4(
-              "EPSG:25830",
-              "EPSG:4326",
-              [x, y]
-            );
+                [
+                  parseFloat(coords[0]),
+                  parseFloat(coords[1])
+                ]
 
-            const lng = convertido[0];
+              );
 
-            const lat = convertido[1];
+              return [
+                convertido[1],
+                convertido[0]
+              ];
 
-            return [lat, lng];
+            }
+          );
 
-          });
+        const linea = L.polyline(
 
-      // ===============================
-      // DIBUJAR LÍNEA
-      // ===============================
+          puntos,
 
-      const linea = L.polyline(
-        puntos,
-        {
-          color: "#39ff14",
-          weight: 6,
-          opacity: 0.95,
-          lineCap: "round",
-          lineJoin: "round"
-        }
-      );
+          {
 
-      linea.on("add", () => {
+            color:
+            "#39ff14",
 
-        const element =
-          linea.getElement();
+            weight:
+            6,
 
-        if (element) {
+            opacity:
+            0.95,
 
-          element.style.filter =
-            "drop-shadow(0 0 6px #39ff14)";
+            lineCap:
+            "round",
 
-        }
+            lineJoin:
+            "round"
 
-      });
+          }
 
-      linea.bindPopup(`
-        <strong>
-          🚲 Carril bici Santander
-        </strong>
-      `);
+        );
 
-      capaCarrilBici.addLayer(linea);
+        linea.bindPopup(
 
-    });
+          crearPopup({
 
-  })
+            color:
+            "#39ff14",
 
-  .catch(error => {
+            titulo:
+            "🚲 Carril bici",
 
-    console.error(
-      "Error CARRIL BICI:",
-      error
+            contenido:
+            `
+            <p>
+              Infraestructura ciclista urbana.
+            </p>
+            `
+
+          })
+
+        );
+
+        capaCarrilBici.addLayer(
+          linea
+        );
+
+      }
     );
 
-  });
+  }
+);
+
 // ===============================
 // RECARGA CSV
 // ===============================
 
 Papa.parse(
+
   "./data/4-puntos_publicos_de_recarga_de_vehiculos_electricos-viesgo.csv",
+
   {
 
-    download: true,
+    download:
+    true,
 
-    header: true,
+    header:
+    true,
 
-    skipEmptyLines: true,
+    skipEmptyLines:
+    true,
 
-    complete: function (results) {
+    complete:
+    function (results) {
 
-      console.log(
-        "CSV RECARGA:",
-        results.data
-      );
-      console.log(results.data[0]);
+      const datosCantabria =
 
-      const datosCantabria = results.data.filter(
-        punto =>
-          punto["Provincia"] === "Cantabria"
-      );
+        results.data.filter(
 
-      datosCantabria.forEach((punto) => {
+          punto =>
+            punto["Provincia"] === "Cantabria"
 
-        const lat = parseFloat(
-          punto["Latitud"]
         );
 
-        const lon = parseFloat(
-          punto["Longitud"]
-        );
+      datosCantabria.forEach(
+        (punto) => {
 
-        if (!lat || !lon) return;
+          const lat = parseFloat(
+            punto["Latitud"]
+          );
 
-        const municipio =
-          punto["Municipio"] ||
-          "Cantabria";
+          const lon = parseFloat(
+            punto["Longitud"]
+          );
 
-        const potencia =
-          punto["Potencia Máxima Admisible (kW)"] ||
-          "N/A";
+          if (!lat || !lon) return;
 
-        const marker = L.circleMarker(
-          [lat, lon],
-          {
-            radius: 6,
-            color: "#f59e0b",
-            fillColor: "#facc15",
-            fillOpacity: 0.9,
-            weight: 2
-          }
-        );
+          const marker = L.circleMarker(
 
-        marker.bindPopup(`
+            [lat, lon],
 
-          <div style="min-width:220px">
+            {
 
-            <h3 style="
-              color:#f59e0b;
-              margin-bottom:8px;
-            ">
-              ⚡ Punto de recarga
-            </h3>
+              radius:
+              6,
 
-            <p>
-              🏙 Municipio:
-              <strong>${municipio}</strong>
-            </p>
+              color:
+              "#f59e0b",
 
-            <p>
-              🔋 Potencia máxima:
-              <strong>${potencia} kW</strong>
-            </p>
+              fillColor:
+              "#facc15",
 
-          </div>
+              fillOpacity:
+              0.9,
 
-        `);
+              weight:
+              2
 
-        capaRecarga.addLayer(marker);
+            }
 
-      });
+          );
 
-    },
+          marker.bindPopup(
 
-    error: function (error) {
+            crearPopup({
 
-      console.error(
-        "Error RECARGA CSV:",
-        error
+              color:
+              "#f59e0b",
+
+              titulo:
+              "⚡ Punto de recarga",
+
+              contenido:
+              `
+              <p>
+                🏙 ${punto["Municipio"] || "Cantabria"}
+              </p>
+
+              <p>
+                🔋 ${punto["Potencia Máxima Admisible (kW)"] || "N/A"} kW
+              </p>
+              `
+
+            })
+
+          );
+
+          capaRecarga.addLayer(
+            marker
+          );
+
+        }
       );
 
     }
 
   }
+
 );
+
 // ===============================
-// FETCH PMR LOCAL
+// PMR
 // ===============================
 
-fetch("./data/pmr.json")
+fetch(
+  "./data/pmr.json"
+)
 
-  .then(response => response.json())
+.then(
+  response => response.json()
+)
 
-  .then(data => {
+.then(
+  data => {
 
     const plazas =
       data.resources || data;
 
-    plazas.forEach((plaza) => {
+    plazas.forEach(
+      (plaza) => {
 
-      const lat = parseFloat(
-        plaza.latitud ||
-        plaza["geo:lat"] ||
-        plaza.latitude
-      );
+        const lat = parseFloat(
 
-      const lon = parseFloat(
-        plaza.longitud ||
-        plaza["geo:long"] ||
-        plaza.longitude
-      );
+          plaza.latitud ||
 
-      if (!lat || !lon) return;
+          plaza["geo:lat"] ||
 
-      const marker = L.circleMarker(
-        [lat, lon],
-        {
-          radius: 6,
-          color: "#7c3aed",
-          fillColor: "#a855f7",
-          fillOpacity: 0.9,
-          weight: 2
-        }
-      );
+          plaza.latitude
 
-      marker.bindPopup(`
+        );
 
-        <div style="min-width:220px">
+        const lon = parseFloat(
 
-          <h3 style="
-            color:#7c3aed;
-            margin-bottom:8px;
-          ">
-            ♿ Plaza PMR
-          </h3>
+          plaza.longitud ||
 
-          <p>
-            📍 Plaza accesible
-          </p>
+          plaza["geo:long"] ||
 
-        </div>
+          plaza.longitude
 
-      `);
+        );
 
-      capaPMR.addLayer(marker);
+        if (!lat || !lon) return;
 
-    });
+        const marker = L.circleMarker(
 
-  })
+          [lat, lon],
 
-  .catch(error => {
+          {
 
-    console.error(
-      "Error PMR:",
-      error
+            radius:
+            6,
+
+            color:
+            "#7c3aed",
+
+            fillColor:
+            "#a855f7",
+
+            fillOpacity:
+            0.9,
+
+            weight:
+            2
+
+          }
+
+        );
+
+        marker.bindPopup(
+
+          crearPopup({
+
+            color:
+            "#7c3aed",
+
+            titulo:
+            "♿ Plaza PMR",
+
+            contenido:
+            `
+            <p>
+              Plaza accesible detectada.
+            </p>
+            `
+
+          })
+
+        );
+
+        capaPMR.addLayer(
+          marker
+        );
+
+      }
     );
 
-  });
+  }
+);
+
 // ===============================
-// ZONA BAJAS EMISIONES
+// ZBE
 // ===============================
 
 const coordenadasZBE = [
 
-  // ===============================
-  // OESTE · LEALTAD / CENTRO
-  // ===============================
   [43.46260855489555, -3.808406082676972],
-
-  // ===============================
-  // NOROESTE · GUEVARA
-  // ===============================
-
   [43.46147939445098, -3.808363183430997],
   [43.461790889093834, -3.804384278365549],
-
-  // ===============================
-  // NORTE · SANTA LUCÍA
-  // ===============================
-
   [43.46251666548063, -3.79717947072458],
   [43.46324866278646, -3.79668612954373],
   [43.465257716227775, -3.797029323511534],
-
-  // ===============================
-  // NORTE-ESTE · MENÉNDEZ PELAYO
-  // ===============================
-
   [43.464712630808975, -3.799109936941459],
   [43.46426098488145, -3.7991313865644565],
-
-  // ===============================
-  // ESTE · PUERTO CHICO
-  // ===============================
-
   [43.46393392882751, -3.803378411916257],
   [43.46363801944452, -3.803893202867983],
-
-  // ===============================
-  // SUR-ESTE · PASEO DE PEREDA
-  // ===============================
-
   [43.46377818722755, -3.80421494721281],
   [43.463591296777956, -3.806123963658832],
   [43.463186365488475, -3.806209762150783],
-
-  // ===============================
-  // SUR · PEREDA / CORREOS
-  // ===============================
-
   [43.46289045244632, -3.8053303276082344],
   [43.46259453795573, -3.808333274826634],
-
-  // ===============================
-  // CIERRE
-  // ===============================
-
   [43.461488739408686, -3.8083332748266834]
 
 ];
+
 const zonaZBE = L.polygon(
+
   coordenadasZBE,
+
   {
-    color: "#ef4444",
-    fillColor: "#ef4444",
-    fillOpacity: 0.22,
-    weight: 4
+
+    color:
+    "#ef4444",
+
+    fillColor:
+    "#ef4444",
+
+    fillOpacity:
+    0.22,
+
+    weight:
+    4
+
   }
+
 );
 
-zonaZBE.bindPopup(`
+zonaZBE.bindPopup(
 
-  <div style="min-width:240px">
+  crearPopup({
 
-    <h3 style="
-      color:#ef4444;
-      margin-bottom:8px;
-    ">
-      🚘 Zona de Bajas Emisiones
-    </h3>
+    color:
+    "#ef4444",
 
+    titulo:
+    "🚘 Zona Bajas Emisiones",
+
+    contenido:
+    `
     <p>
-      Área urbana con restricciones
-      de tráfico contaminante.
+      Área urbana restringida.
     </p>
 
     <p>
-      🌱 Objetivo:
-      mejorar calidad del aire.
+      🌱 Mejora de calidad del aire.
     </p>
+    `
 
-  </div>
+  })
 
-`);
+);
 
-capaZBE.addLayer(zonaZBE);
+capaZBE.addLayer(
+  zonaZBE
+);
+
 // ===============================
 // CÁMARAS ZBE
 // ===============================
@@ -631,281 +906,119 @@ const camarasZBE = [
   {
     nombre: "ZBE17",
     coords: [43.46281258035237, -3.8054131559711233]
-  },
-  {
-    nombre: "ZBE18",
-    coords: [43.46376105553198, -3.8037606817931695]
   }
 
 ];
-camarasZBE.forEach((camara) => {
 
-  const iconoCamara = L.divIcon({
+camarasZBE.forEach(
+  (camara) => {
 
-    className: "camera-marker",
+    const marker = L.marker(
 
-    html: "📷",
+      camara.coords,
 
-    iconSize: [26, 26]
+      {
+        icon:
+        iconoCamara
+      }
 
-  });
+    );
 
-  const marker = L.marker(
-    camara.coords,
-    {
-      icon: iconoCamara
-    }
-  );
+    marker.bindPopup(
 
-  marker.bindPopup(`
+      crearPopup({
 
-    <div style="min-width:220px">
+        color:
+        "#ef4444",
 
-      <h3 style="
-        color:#ef4444;
-        margin-bottom:8px;
-      ">
-        📷 ${camara.nombre}
-      </h3>
+        titulo:
+        `📷 ${camara.nombre}`,
 
-      <p>
-        Cámara de control ZBE
-      </p>
+        contenido:
+        `
+        <p>
+          Cámara de control ZBE.
+        </p>
 
-      <p>
-        🚘 Control de acceso
-        de vehículos.
-      </p>
+        <p>
+          🚘 Supervisión de accesos.
+        </p>
+        `
 
-    </div>
+      })
 
-  `);
+    );
 
-  capaCamarasZBE.addLayer(marker);
+    capaCamarasZBE.addLayer(
+      marker
+    );
 
-});
+  }
+);
+
 // ===============================
 // BOTONES
 // ===============================
 
 window.addEventListener(
+
   "DOMContentLoaded",
+
   () => {
 
-    // ===============================
-    // BUS
-    // ===============================
+    document
+    .getElementById("btnBus")
+    ?.addEventListener(
+      "click",
+      () => toggleLayer(capaBus)
+    );
 
-    const btnBus =
-      document.getElementById(
-        "btnBus"
-      );
+    document
+    .getElementById("btnBici")
+    ?.addEventListener(
+      "click",
+      () => toggleMultipleLayers([
+        capaBici,
+        capaCarrilBici
+      ])
+    );
 
-    if (btnBus) {
+    document
+    .getElementById("btnRecarga")
+    ?.addEventListener(
+      "click",
+      () => toggleLayer(capaRecarga)
+    );
 
-      btnBus.addEventListener(
-        "click",
-        () => {
+    document
+    .getElementById("btnPMR")
+    ?.addEventListener(
+      "click",
+      () => toggleLayer(capaPMR)
+    );
 
-          if (
-            mapMovilidad.hasLayer(
-              capaBus
-            )
-          ) {
-
-            mapMovilidad.removeLayer(
-              capaBus
-            );
-
-          } else {
-
-            mapMovilidad.addLayer(
-              capaBus
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-    // ===============================
-    // BICI
-    // ===============================
-
-    const btnBici =
-      document.getElementById(
-        "btnBici"
-      );
-
-    if (btnBici) {
-
-      btnBici.addEventListener(
-        "click",
-        () => {
-
-          if (
-            mapMovilidad.hasLayer(
-              capaBici
-            )
-          ) {
-
-            mapMovilidad.removeLayer(
-              capaBici
-            );
-
-            mapMovilidad.removeLayer(
-              capaCarrilBici
-            );
-
-          } else {
-
-            mapMovilidad.addLayer(
-              capaBici
-            );
-
-            mapMovilidad.addLayer(
-              capaCarrilBici
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-    // ===============================
-    // RECARGA
-    // ===============================
-
-    const btnRecarga =
-      document.getElementById(
-        "btnRecarga"
-      );
-
-    if (btnRecarga) {
-
-      btnRecarga.addEventListener(
-        "click",
-        () => {
-
-          if (
-            mapMovilidad.hasLayer(
-              capaRecarga
-            )
-          ) {
-
-            mapMovilidad.removeLayer(
-              capaRecarga
-            );
-
-          } else {
-
-            mapMovilidad.addLayer(
-              capaRecarga
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-    // ===============================
-    // PMR
-    // ===============================
-
-    const btnPMR =
-      document.getElementById(
-        "btnPMR"
-      );
-
-    if (btnPMR) {
-
-      btnPMR.addEventListener(
-        "click",
-        () => {
-
-          if (
-            mapMovilidad.hasLayer(
-              capaPMR
-            )
-          ) {
-
-            mapMovilidad.removeLayer(
-              capaPMR
-            );
-
-          } else {
-
-            mapMovilidad.addLayer(
-              capaPMR
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-    // ===============================
-    // ZBE
-    // ===============================
-
-    const btnCoche =
-      document.getElementById(
-        "btnCoche"
-      );
-
-    if (btnCoche) {
-
-      btnCoche.addEventListener(
-        "click",
-        () => {
-
-          const zbeActiva =
-            mapMovilidad.hasLayer(
-              capaZBE
-            );
-
-          if (zbeActiva) {
-
-            // ===============================
-            // OCULTAR ZBE
-            // ===============================
-
-            mapMovilidad.removeLayer(
-              capaZBE
-            );
-
-            mapMovilidad.removeLayer(
-              capaCamarasZBE
-            );
-
-          } else {
-
-            // ===============================
-            // MOSTRAR ZBE
-            // ===============================
-
-            mapMovilidad.addLayer(
-              capaZBE
-            );
-
-            mapMovilidad.addLayer(
-              capaCamarasZBE
-            );
-
-          }
-
-        }
-      );
-
-    }
+    document
+    .getElementById("btnCoche")
+    ?.addEventListener(
+      "click",
+      () => toggleMultipleLayers([
+        capaZBE,
+        capaCamarasZBE
+      ])
+    );
 
   }
+
+);
+
+// ===============================
+// ACTIVAR CAPAS INICIALES
+// ===============================
+
+mapMovilidad.addLayer(
+  capaCarrilBici
+);
+
+mapMovilidad.addLayer(
+  capaBici
 );

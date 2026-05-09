@@ -1,74 +1,84 @@
 // ===============================
-// TILE LAYER BASE
+// CONFIG MAPA BASE
+// ===============================
+
+const configMapa = {
+
+  center:
+  [43.4623, -3.8099],
+
+  zoom:
+  13
+
+};
+
+// ===============================
+// TILE LAYER PREMIUM
 // ===============================
 
 function crearTileLayer() {
 
   return L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+
     {
+
       attribution:
-        "&copy; OpenStreetMap contributors"
+      "&copy; OpenStreetMap & CARTO",
+
+      subdomains:
+      "abcd",
+
+      maxZoom:
+      20
+
     }
+
   );
 
 }
-
-// ===============================
-// CONFIG MAPA BASE
-// ===============================
-
-const configMapa = {
-  center: [43.4623, -3.8099],
-  zoom: 13
-};
 
 // ===============================
 // MAPA MOVILIDAD
 // ===============================
 
 export const mapMovilidad = L.map(
+
   "mapMovilidad",
+
   {
-    zoomControl: true
+
+    zoomControl:
+    false,
+
+    attributionControl:
+    false,
+
+    preferCanvas:
+    true
+
   }
+
 ).setView(
+
   configMapa.center,
+
   configMapa.zoom
+
 );
 
-// TILE
-crearTileLayer().addTo(mapMovilidad);
+crearTileLayer().addTo(
+  mapMovilidad
+);
 
-// ===============================
-// MOUSE POSITION
-// ===============================
+L.control.zoom({
 
-L.control.mousePosition({
+  position:
+  "bottomright"
 
-  position: "bottomleft",
-
-  separator: " | ",
-
-  numDigits: 6,
-
-  prefix: "Coords:"
-
-}).addTo(mapMovilidad);
-
-// ===============================
-// CLICK COORDS
-// ===============================
-
-mapMovilidad.on(
-  "click",
-  function (e) {
-
-    console.log(
-      `LAT: ${e.latlng.lat}, LNG: ${e.latlng.lng}`
-    );
-
-  }
+}).addTo(
+  mapMovilidad
 );
 
 // ===============================
@@ -76,31 +86,101 @@ mapMovilidad.on(
 // ===============================
 
 export const mapSostenibilidad = L.map(
+
   "mapSostenibilidad",
+
   {
-    zoomControl: true
+
+    zoomControl:
+    false,
+
+    attributionControl:
+    false,
+
+    preferCanvas:
+    true
+
   }
+
 ).setView(
+
   configMapa.center,
+
   configMapa.zoom
+
 );
 
-// TILE
-crearTileLayer().addTo(mapSostenibilidad);
+crearTileLayer().addTo(
+  mapSostenibilidad
+);
+
+L.control.zoom({
+
+  position:
+  "bottomright"
+
+}).addTo(
+  mapSostenibilidad
+);
 
 // ===============================
 // MAPA COMERCIO
 // ===============================
 
 export const mapComercio = L.map(
+
   "mapComercio",
+
   {
-    zoomControl: true
+
+    zoomControl:
+    false,
+
+    attributionControl:
+    false,
+
+    preferCanvas:
+    true
+
   }
+
 ).setView(
+
   configMapa.center,
+
   configMapa.zoom
+
 );
 
-// TILE
-crearTileLayer().addTo(mapComercio);
+crearTileLayer().addTo(
+  mapComercio
+);
+
+L.control.zoom({
+
+  position:
+  "bottomright"
+
+}).addTo(
+  mapComercio
+);
+
+// ===============================
+// AUTO RESIZE
+// ===============================
+
+window.addEventListener(
+
+  "resize",
+
+  () => {
+
+    mapMovilidad.invalidateSize();
+
+    mapSostenibilidad.invalidateSize();
+
+    mapComercio.invalidateSize();
+
+  }
+
+);

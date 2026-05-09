@@ -9,10 +9,7 @@
 
   <meta charset="UTF-8" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>
     Santander Territorio Vivo
@@ -22,58 +19,35 @@
   <!-- FAVICON -->
   <!-- =============================== -->
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="./assets/images/favicon.png"
-  />
+  <link rel="icon" type="image/png" href="./assets/images/favicon.png" />
 
   <!-- =============================== -->
   <!-- GOOGLE FONTS -->
   <!-- =============================== -->
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- =============================== -->
   <!-- LEAFLET CSS -->
   <!-- =============================== -->
 
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet/dist/leaflet.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <!-- =============================== -->
   <!-- MOUSE POSITION CSS -->
   <!-- =============================== -->
 
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.css" />
 
   <!-- =============================== -->
   <!-- ESTILOS APP -->
   <!-- =============================== -->
 
-  <link
-    rel="stylesheet"
-    href="./css/estilos.css"
-  />
+  <link rel="stylesheet" href="./css/estilos.css" />
 
   <!-- =============================== -->
   <!-- LEAFLET JS -->
@@ -91,7 +65,8 @@
   <!-- POLYLINE DECORATOR -->
   <!-- =============================== -->
 
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
 
   <!-- =============================== -->
   <!-- PROJ4 -->
@@ -125,6 +100,22 @@
 <body>
 
   <!-- =============================== -->
+  <!-- LOADER -->
+  <!-- =============================== -->
+
+  <div id="loader">
+
+    <div class="loader-logo">
+      STV
+    </div>
+
+    <p>
+      Inicializando inteligencia urbana...
+    </p>
+
+  </div>
+
+  <!-- =============================== -->
   <!-- HERO -->
   <!-- =============================== -->
 
@@ -132,7 +123,15 @@
 
     <div class="hero-overlay"></div>
 
+    <div class="hero-particles"></div>
+
     <div class="hero-content fade-up">
+
+      <div class="hero-badge">
+
+        🌍 Plataforma Smart City Santander
+
+      </div>
 
       <h1>
         Santander Territorio Vivo
@@ -145,12 +144,61 @@
         accesible y sostenible.
       </p>
 
-      <button
-        class="hero-btn"
-        onclick="document.getElementById('movilidad').scrollIntoView()"
-      >
-        Explorar ciudad
-      </button>
+      <div class="hero-actions">
+
+        <button class="hero-btn" onclick="document.getElementById('movilidad').scrollIntoView()">
+          Explorar ciudad
+        </button>
+
+        <button class="hero-secondary-btn" onclick="document.getElementById('global').scrollIntoView()">
+          Ver insights
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- =============================== -->
+    <!-- FLOATING STATS -->
+    <!-- =============================== -->
+
+    <div class="floating-stats">
+
+      <div class="floating-stat">
+
+        <span>
+          🚦 Congestión
+        </span>
+
+        <strong id="heroCongestion">
+          72%
+        </strong>
+
+      </div>
+
+      <div class="floating-stat">
+
+        <span>
+          🌱 Sostenibilidad
+        </span>
+
+        <strong id="heroSostenibilidad">
+          84%
+        </strong>
+
+      </div>
+
+      <div class="floating-stat">
+
+        <span>
+          🏪 Actividad
+        </span>
+
+        <strong id="heroActividad">
+          +18%
+        </strong>
+
+      </div>
 
     </div>
 
@@ -160,35 +208,63 @@
   <!-- IA PANEL -->
   <!-- =============================== -->
 
-  <div class="urban-ai">
+  <div class="urban-pulse-wrapper">
 
-    <h3>
-      🧠 Urban Pulse AI
-    </h3>
+    <button id="togglePulse" class="pulse-toggle"></button>
 
-    <div class="ai-insight warning">
+    <div id="urbanPulse" class="urban-pulse-panel">
 
-      ⚠ Alta presión urbana detectada
-      en el centro de Santander.
+      <div class="urban-ai">
 
-    </div>
+        <div class="ai-header">
 
-    <div class="ai-insight success">
+          <h3>
+            🧠 Urban Pulse AI
+          </h3>
 
-      🚲 Incrementar movilidad ciclista
-      podría reducir congestión un 12%.
+          <div class="live-indicator">
 
-    </div>
+            <span class="live-dot"></span>
 
-    <div class="ai-insight success">
+            EN DIRECTO
 
-      🌱 Zona con buena eficiencia
-      energética detectada en Camargo.
+          </div>
+
+        </div>
+
+        <div class="ai-insight warning">
+
+          ⚠ Alta presión urbana detectada
+          en el centro de Santander.
+
+        </div>
+
+        <div class="ai-insight success">
+
+          🚲 Incrementar movilidad ciclista
+          podría reducir congestión un 12%.
+
+        </div>
+
+        <div class="ai-insight success">
+
+          🌱 Zona con buena eficiencia
+          energética detectada en Camargo.
+
+        </div>
+
+        <div class="ai-insight warning">
+
+          🏪 Incremento de actividad comercial
+          previsto durante la tarde.
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
-
   <!-- =============================== -->
   <!-- HEADER -->
   <!-- =============================== -->
@@ -197,11 +273,7 @@
 
     <div class="brand">
 
-      <img
-        src="./assets/images/logo.png"
-        alt="STV Logo"
-        class="logo"
-      />
+      <img src="./assets/images/logo.png" alt="STV Logo" class="logo" />
 
       <div>
 
@@ -249,8 +321,14 @@
 
     <div class="section-header">
 
+      <div class="section-badge">
+
+        🚗 MOVILIDAD URBANA
+
+      </div>
+
       <h2>
-        🚗 Movilidad Inteligente
+        Movilidad Inteligente
       </h2>
 
       <p>
@@ -265,14 +343,14 @@
 
     <div class="kpi-grid">
 
-      <div class="kpi">
+      <div class="kpi pulse">
 
         <span>
           🚦 Congestión urbana
         </span>
 
-        <strong>
-          --
+        <strong id="kpiCongestion">
+          72%
         </strong>
 
       </div>
@@ -283,8 +361,8 @@
           🚗 Flujo de tráfico
         </span>
 
-        <strong>
-          --
+        <strong id="kpiFlujo">
+          +18%
         </strong>
 
       </div>
@@ -295,9 +373,39 @@
           🔥 Zonas críticas
         </span>
 
-        <strong>
-          --
+        <strong id="kpiZonas">
+          14
         </strong>
+
+      </div>
+
+    </div>
+
+    <!-- TIMELINE -->
+
+    <div class="timeline-container">
+
+      <div class="timeline-header">
+
+        <h3>
+          🕒 Actividad urbana temporal
+        </h3>
+
+      </div>
+
+      <div class="timeline">
+
+        <button class="timeline-btn active">
+          🌅 Mañana
+        </button>
+
+        <button class="timeline-btn">
+          ☀️ Tarde
+        </button>
+
+        <button class="timeline-btn">
+          🌙 Noche
+        </button>
 
       </div>
 
@@ -331,7 +439,43 @@
 
     <!-- MAPA -->
 
-    <div id="mapMovilidad" class="sector-map"></div>
+    <div class="map-wrapper">
+
+      <!-- FLOATING MAP KPIS -->
+
+      <div class="floating-map-kpis">
+
+        <div class="map-kpi">
+
+          <span>
+            📍 Zona crítica
+          </span>
+
+          <strong>
+            Centro
+          </strong>
+
+        </div>
+
+        <div class="map-kpi">
+
+          <span>
+            🚲 Movilidad sostenible
+          </span>
+
+          <strong>
+            +22%
+          </strong>
+
+        </div>
+
+      </div>
+
+      <!-- MAPA -->
+
+      <div id="mapMovilidad" class="sector-map"></div>
+
+    </div>
 
     <!-- INSIGHTS -->
 
@@ -350,6 +494,32 @@
 
       </div>
 
+      <div class="card">
+
+        <strong>
+          🚲 Movilidad sostenible
+        </strong>
+
+        <p>
+          La movilidad ciclista muestra
+          crecimiento en corredores urbanos clave.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>
+          🧠 Predicción urbana
+        </strong>
+
+        <p>
+          Se prevé incremento de presión
+          urbana durante las próximas horas.
+        </p>
+
+      </div>
+
     </div>
 
   </section>
@@ -362,14 +532,43 @@
 
     <div class="section-header">
 
+      <div class="section-badge">
+
+        🌱 SOSTENIBILIDAD
+
+      </div>
+
       <h2>
-        🌱 Sostenibilidad Energética
+        Sostenibilidad Energética
       </h2>
 
       <p>
         Consumo energético, autoconsumo
         y transición sostenible basada en datos urbanos.
       </p>
+
+    </div>
+
+    <!-- HEALTH SCORE -->
+
+    <div class="urban-health">
+
+      <div class="health-score-card">
+
+        <span>
+          🌍 Índice de Salud Urbana
+        </span>
+
+        <div class="health-score">
+          78/100
+        </div>
+
+        <p>
+          Nivel urbano equilibrado
+          con buena sostenibilidad energética.
+        </p>
+
+      </div>
 
     </div>
 
@@ -384,7 +583,7 @@
         </span>
 
         <strong>
-          --
+          84%
         </strong>
 
       </div>
@@ -396,7 +595,7 @@
         </span>
 
         <strong>
-          --
+          +32%
         </strong>
 
       </div>
@@ -408,7 +607,7 @@
         </span>
 
         <strong>
-          --
+          41
         </strong>
 
       </div>
@@ -489,8 +688,14 @@
 
     <div class="section-header">
 
+      <div class="section-badge">
+
+        🏪 ACTIVIDAD ECONÓMICA
+
+      </div>
+
       <h2>
-        🏪 Comercio Local
+        Comercio Local
       </h2>
 
       <p>
@@ -512,7 +717,7 @@
         </span>
 
         <strong>
-          --
+          +18%
         </strong>
 
       </div>
@@ -524,7 +729,7 @@
         </span>
 
         <strong>
-          --
+          23
         </strong>
 
       </div>
@@ -536,7 +741,7 @@
         </span>
 
         <strong>
-          --
+          11
         </strong>
 
       </div>
@@ -577,8 +782,14 @@
 
     <div class="section-header">
 
+      <div class="section-badge">
+
+        🧠 INTELIGENCIA TERRITORIAL
+
+      </div>
+
       <h2>
-        🧠 Inteligencia Territorial
+        Insights Globales
       </h2>
 
       <p>
@@ -636,6 +847,30 @@
     </div>
 
   </section>
+
+  <!-- =============================== -->
+  <!-- MOBILE NAV -->
+  <!-- =============================== -->
+
+  <nav class="mobile-nav">
+
+    <a href="#movilidad">
+      🚗
+    </a>
+
+    <a href="#sostenibilidad">
+      🌱
+    </a>
+
+    <a href="#comercio">
+      🏪
+    </a>
+
+    <a href="#global">
+      🧠
+    </a>
+
+  </nav>
 
   <!-- =============================== -->
   <!-- LÓGICA -->

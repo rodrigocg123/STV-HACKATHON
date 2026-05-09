@@ -3,9 +3,11 @@ import {
 } from "./mapas.js";
 
 import {
+
   obtenerColor,
   obtenerRadio,
   obtenerNivel
+
 } from "./utils.js";
 
 // ===============================
@@ -15,19 +17,22 @@ import {
 const heatPointsSostenibilidad = [];
 
 // ===============================
+// CAPAS
+// ===============================
+
+const capaEnergia =
+  L.layerGroup();
+
+const capaHeat =
+  L.layerGroup();
+
+// ===============================
 // KPIs
 // ===============================
 
 const kpis =
-  document.querySelectorAll(".kpi strong");
-
-// ===============================
-// RANKING
-// ===============================
-
-const rankingContainer =
-  document.getElementById(
-    "rankingContainer"
+  document.querySelectorAll(
+    ".kpi strong"
   );
 
 // ===============================
@@ -37,23 +42,43 @@ const rankingContainer =
 const csvFiles = [
 
   {
-    name: "consumoMensual",
-    path: "./data/2-consumo-mensual-por-codigo-postal-viesgo.csv"
+
+    name:
+    "consumoMensual",
+
+    path:
+    "./data/2-consumo-mensual-por-codigo-postal-viesgo.csv"
+
   },
 
   {
-    name: "autoconsumo",
-    path: "./data/12-autoconsumo-por-tipologia-viesgo.csv"
+
+    name:
+    "autoconsumo",
+
+    path:
+    "./data/12-autoconsumo-por-tipologia-viesgo.csv"
+
   },
 
   {
-    name: "instalacionesAutoconsumo",
-    path: "./data/13-instalaciones-de-autoconsumo-por-tipologia-viesgo.csv"
+
+    name:
+    "instalacionesAutoconsumo",
+
+    path:
+    "./data/13-instalaciones-de-autoconsumo-por-tipologia-viesgo.csv"
+
   },
 
   {
-    name: "puntosSuministro",
-    path: "./data/puntos-de-suministro-por-tipologia-viesgo.csv"
+
+    name:
+    "puntosSuministro",
+
+    path:
+    "./data/puntos-de-suministro-por-tipologia-viesgo.csv"
+
   }
 
 ];
@@ -64,175 +89,405 @@ const csvFiles = [
 
 const coordenadasMunicipios = {
 
-  "Santander": [43.4623, -3.8099],
-  "Torrelavega": [43.3494, -4.0470],
-  "Camargo": [43.4070, -3.8840],
-  "Castro-Urdiales": [43.3828, -3.2204],
-  "Laredo": [43.4115, -3.4161]
+  "Santander":
+  [43.4623, -3.8099],
+
+  "Torrelavega":
+  [43.3494, -4.0470],
+
+  "Camargo":
+  [43.4070, -3.8840],
+
+  "Castro-Urdiales":
+  [43.3828, -3.2204],
+
+  "Laredo":
+  [43.4115, -3.4161]
 
 };
 
 // ===============================
-// CARGA CSV
+// POPUP PREMIUM
 // ===============================
 
-function cargarCSV(file) {
+function crearPopup({
 
-  Papa.parse(file.path, {
+  municipio,
+  nivel,
+  total,
+  eficiencia
 
-    download: true,
+}) {
 
-    header: true,
+  return `
 
-    skipEmptyLines: true,
+    <div class="premium-popup">
 
-    complete: function(results) {
+      <div class="popup-header">
 
-      const datosCantabria =
-        results.data.filter(item => {
+        <h3>
+          ⚡ ${municipio}
+        </h3>
 
-          const provincia =
-            (
-              item.Provincia ||
-              item.provincia ||
-              ""
-            ).toLowerCase();
+      </div>
 
-          return provincia.includes(
-            "cantabria"
-          );
+      <div class="popup-body">
 
-        });
+        <p>
+          Nivel energético:
+          <strong>${nivel}</strong>
+        </p>
 
-      if (file.name === "consumoMensual") {
+        <div class="popup-metrics">
 
-        if (kpis[3]) {
+          <div>
 
-          kpis[3].textContent = "74%";
+            <span>
+              Registros
+            </span>
 
-        }
+            <strong>
+              ${total}
+            </strong>
 
-      }
+          </div>
 
-      if (file.name === "autoconsumo") {
+          <div>
 
-        if (kpis[4]) {
+            <span>
+              Eficiencia
+            </span>
 
-          kpis[4].textContent = "+31%";
+            <strong>
+              ${eficiencia}%
+            </strong>
 
-        }
+          </div>
 
-      }
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+// ===============================
+// ACTUALIZAR KPIs
+// ===============================
+
+function actualizarKPIs(
+  fileName
+) {
+
+  if (
+    fileName ===
+    "consumoMensual"
+  ) {
+
+    if (kpis[3]) {
+
+      kpis[3].textContent =
+        "74%";
+
+    }
+
+  }
+
+  if (
+    fileName ===
+    "autoconsumo"
+  ) {
+
+    if (kpis[4]) {
+
+      kpis[4].textContent =
+        "+31%";
+
+    }
+
+  }
+
+  if (
+    fileName ===
+    "instalacionesAutoconsumo"
+  ) {
+
+    if (kpis[5]) {
+
+      kpis[5].textContent =
+        "1.974";
+
+    }
+
+  }
+
+}
+
+// ===============================
+// GENERAR MUNICIPIOS
+// ===============================
+
+function generarMapaEnergia(
+  datosCantabria
+) {
+
+  const municipiosAgrupados = {};
+
+  datosCantabria.forEach(
+    (item) => {
+
+      const municipio = (
+
+        item.Municipio ||
+
+        item.municipio ||
+
+        ""
+
+      ).trim();
+
+      if (!municipio) return;
 
       if (
-        file.name ===
-        "instalacionesAutoconsumo"
+        !municipiosAgrupados[
+          municipio
+        ]
       ) {
 
-        if (kpis[5]) {
-
-          kpis[5].textContent = "1.974";
-
-        }
+        municipiosAgrupados[
+          municipio
+        ] = 0;
 
       }
 
-      // ===============================
-      // MAPA ENERGÍA
-      // ===============================
+      municipiosAgrupados[
+        municipio
+      ] +=
 
-      if (file.name === "puntosSuministro") {
+      Math.floor(
+        Math.random() * 40
+      ) + 1;
 
-        const municipiosAgrupados = {};
+    }
+  );
 
-        datosCantabria.forEach(item => {
+  Object.keys(
+    municipiosAgrupados
+  )
 
-          const municipio =
-            (
-              item.Municipio ||
-              item.municipio ||
-              ""
-            ).trim();
+  .forEach(
+    (municipio) => {
 
-          if (!municipio) return;
+      const coords =
 
-          if (!municipiosAgrupados[municipio]) {
+        coordenadasMunicipios[
+          municipio
+        ];
 
-            municipiosAgrupados[municipio] = 0;
+      if (!coords) return;
 
-          }
+      const total =
 
-          municipiosAgrupados[municipio] +=
-            Math.floor(
-              Math.random() * 40
-            ) + 1;
+        municipiosAgrupados[
+          municipio
+        ];
 
-        });
+      const color =
+        obtenerColor(total);
 
-        Object.keys(municipiosAgrupados)
-          .forEach(municipio => {
+      const radius =
+        obtenerRadio(total);
 
-            const coords =
-              coordenadasMunicipios[
-                municipio
-              ];
+      const nivel =
+        obtenerNivel(total);
 
-            if (!coords) return;
+      const eficiencia =
+        Math.floor(
+          70 + Math.random() * 20
+        );
 
-            const total =
-              municipiosAgrupados[
-                municipio
-              ];
+      heatPointsSostenibilidad.push([
 
-            const color =
-              obtenerColor(total);
+        coords[0],
+        coords[1],
+        total / 1000
 
-            const radius =
-              obtenerRadio(total);
+      ]);
 
-            const nivel =
-              obtenerNivel(total);
+      const circle = L.circleMarker(
 
-            heatPointsSostenibilidad.push([
-              coords[0],
-              coords[1],
-              total / 1000
-            ]);
+        coords,
 
-            L.circleMarker(
-              coords,
-              {
-                radius,
-                color,
-                fillColor: color,
-                fillOpacity: 0.75,
-                weight: 1
-              }
-            )
+        {
 
-            .addTo(mapSostenibilidad)
+          radius:
+          radius,
 
-            .bindPopup(`
-              <strong>${municipio}</strong><br>
-              Nivel: ${nivel}<br>
-              Registros: ${total}
-            `);
+          color:
+          color,
 
-          });
+          fillColor:
+          color,
 
-        L.heatLayer(
-          heatPointsSostenibilidad,
-          {
-            radius: 35,
-            blur: 25
-          }
-        ).addTo(mapSostenibilidad);
+          fillOpacity:
+          0.75,
+
+          weight:
+          1.5
+
+        }
+
+      );
+
+      circle.bindPopup(
+
+        crearPopup({
+
+          municipio,
+          nivel,
+          total,
+          eficiencia
+
+        })
+
+      );
+
+      circle.addTo(
+        capaEnergia
+      );
+
+    }
+  );
+
+}
+
+// ===============================
+// GENERAR HEATMAP
+// ===============================
+
+function generarHeatmap() {
+
+  const heat = L.heatLayer(
+
+    heatPointsSostenibilidad,
+
+    {
+
+      radius:
+      35,
+
+      blur:
+      25,
+
+      maxZoom:
+      16,
+
+      gradient: {
+
+        0.2:
+        "#00ffae",
+
+        0.4:
+        "#d9ff00",
+
+        0.6:
+        "#ffae00",
+
+        0.8:
+        "#ff5e00",
+
+        1:
+        "#ff2d55"
 
       }
 
     }
 
-  });
+  );
+
+  capaHeat.addLayer(
+    heat
+  );
+
+  capaHeat.addTo(
+    mapSostenibilidad
+  );
+
+}
+
+// ===============================
+// CARGA CSV
+// ===============================
+
+function cargarCSV(
+  file
+) {
+
+  Papa.parse(
+
+    file.path,
+
+    {
+
+      download:
+      true,
+
+      header:
+      true,
+
+      skipEmptyLines:
+      true,
+
+      complete:
+      function(results) {
+
+        const datosCantabria =
+
+          results.data.filter(
+            item => {
+
+              const provincia = (
+
+                item.Provincia ||
+
+                item.provincia ||
+
+                ""
+
+              ).toLowerCase();
+
+              return provincia.includes(
+                "cantabria"
+              );
+
+            }
+          );
+
+        actualizarKPIs(
+          file.name
+        );
+
+        if (
+          file.name ===
+          "puntosSuministro"
+        ) {
+
+          generarMapaEnergia(
+            datosCantabria
+          );
+
+          generarHeatmap();
+
+        }
+
+      }
+
+    }
+
+  );
 
 }
 
@@ -240,8 +495,49 @@ function cargarCSV(file) {
 // INICIAR CSVs
 // ===============================
 
-csvFiles.forEach(file => {
+csvFiles.forEach(
+  file => {
 
-  cargarCSV(file);
+    cargarCSV(
+      file
+    );
 
-});
+  }
+);
+
+// ===============================
+// ACTIVAR CAPAS
+// ===============================
+
+mapSostenibilidad.addLayer(
+  capaEnergia
+);
+
+// ===============================
+// ANIMACIÓN INICIAL
+// ===============================
+
+setTimeout(
+
+  () => {
+
+    mapSostenibilidad.flyTo(
+
+      [43.4623, -3.8099],
+
+      11,
+
+      {
+
+        duration:
+        2
+
+      }
+
+    );
+
+  },
+
+  1200
+
+);
