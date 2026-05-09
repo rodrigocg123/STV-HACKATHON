@@ -3,26 +3,82 @@
 
 <head>
 
+  <!-- =============================== -->
+  <!-- META -->
+  <!-- =============================== -->
+
   <meta charset="UTF-8" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>
     Santander Territorio Vivo
   </title>
 
+  <!-- =============================== -->
   <!-- FAVICON -->
+  <!-- =============================== -->
 
-  <link rel="icon" type="image/png" href="./assets/images/favicon.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    href="./assets/images/favicon.png"
+  />
 
-  <!-- LEAFLET -->
+  <!-- =============================== -->
+  <!-- LEAFLET CSS -->
+  <!-- =============================== -->
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+
+  <!-- =============================== -->
+  <!-- MOUSE POSITION CSS -->
+  <!-- =============================== -->
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.css"
+  />
+
+  <!-- =============================== -->
+  <!-- ESTILOS APP -->
+  <!-- =============================== -->
+
+  <link
+    rel="stylesheet"
+    href="./css/estilos.css"
+  />
+
+  <!-- =============================== -->
+  <!-- LEAFLET JS -->
+  <!-- =============================== -->
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- =============================== -->
+  <!-- MOUSE POSITION -->
+  <!-- =============================== -->
+
+  <script src="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.js"></script>
+
+  <!-- =============================== -->
+  <!-- POLYLINE DECORATOR -->
+  <!-- =============================== -->
+
   <script src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
 
+  <!-- =============================== -->
+  <!-- PROJ4 -->
+  <!-- =============================== -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
+
   <script>
 
     proj4.defs(
@@ -32,20 +88,19 @@
 
   </script>
 
+  <!-- =============================== -->
   <!-- HEATMAP -->
+  <!-- =============================== -->
 
   <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 
+  <!-- =============================== -->
   <!-- PAPAPARSE -->
+  <!-- =============================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <!-- ESTILOS -->
-
-  <link rel="stylesheet" href="./css/estilos.css" />
-
 </head>
-
 <body>
 
   <!-- =============================== -->
@@ -176,8 +231,8 @@
         ♿ PMR
       </button>
 
-      <button id="btnZona30">
-        🚗 ZONA 30
+      <button id="btnCoche">
+        🚘 ZBE
       </button>
 
     </div>
