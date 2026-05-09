@@ -29,6 +29,26 @@
   />
 
   <!-- =============================== -->
+  <!-- GOOGLE FONTS -->
+  <!-- =============================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- =============================== -->
   <!-- LEAFLET CSS -->
   <!-- =============================== -->
 
@@ -101,7 +121,73 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 </head>
+
 <body>
+
+  <!-- =============================== -->
+  <!-- HERO -->
+  <!-- =============================== -->
+
+  <section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content fade-up">
+
+      <h1>
+        Santander Territorio Vivo
+      </h1>
+
+      <p>
+        Plataforma inteligente de movilidad,
+        sostenibilidad y actividad económica
+        para una Santander más eficiente,
+        accesible y sostenible.
+      </p>
+
+      <button
+        class="hero-btn"
+        onclick="document.getElementById('movilidad').scrollIntoView()"
+      >
+        Explorar ciudad
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- =============================== -->
+  <!-- IA PANEL -->
+  <!-- =============================== -->
+
+  <div class="urban-ai">
+
+    <h3>
+      🧠 Urban Pulse AI
+    </h3>
+
+    <div class="ai-insight warning">
+
+      ⚠ Alta presión urbana detectada
+      en el centro de Santander.
+
+    </div>
+
+    <div class="ai-insight success">
+
+      🚲 Incrementar movilidad ciclista
+      podría reducir congestión un 12%.
+
+    </div>
+
+    <div class="ai-insight success">
+
+      🌱 Zona con buena eficiencia
+      energética detectada en Camargo.
+
+    </div>
+
+  </div>
 
   <!-- =============================== -->
   <!-- HEADER -->
@@ -111,7 +197,11 @@
 
     <div class="brand">
 
-      <img src="./assets/images/logo.png" alt="STV Logo" class="logo" />
+      <img
+        src="./assets/images/logo.png"
+        alt="STV Logo"
+        class="logo"
+      />
 
       <div>
 
@@ -140,7 +230,7 @@
       </a>
 
       <a href="#comercio">
-        🏪 Comercio Local
+        🏪 Comercio
       </a>
 
       <a href="#global">
@@ -155,7 +245,7 @@
   <!-- MOVILIDAD -->
   <!-- =============================== -->
 
-  <section id="movilidad" class="sector-section movilidad">
+  <section id="movilidad" class="sector-section movilidad fade-up">
 
     <div class="section-header">
 
@@ -164,7 +254,9 @@
       </h2>
 
       <p>
-        Monitorización del tráfico urbano, congestión y zonas de alta presión.
+        Monitorización del tráfico urbano,
+        congestión y zonas de alta presión
+        en Santander y alrededores.
       </p>
 
     </div>
@@ -252,7 +344,8 @@
         </strong>
 
         <p>
-          Identificadas zonas con alta intensidad de tráfico en Santander centro.
+          Identificadas zonas con alta intensidad
+          de tráfico en Santander centro y accesos urbanos.
         </p>
 
       </div>
@@ -265,7 +358,7 @@
   <!-- SOSTENIBILIDAD -->
   <!-- =============================== -->
 
-  <section id="sostenibilidad" class="sector-section sostenibilidad">
+  <section id="sostenibilidad" class="sector-section sostenibilidad fade-up">
 
     <div class="section-header">
 
@@ -274,7 +367,8 @@
       </h2>
 
       <p>
-        Consumo energético, autoconsumo y transición sostenible.
+        Consumo energético, autoconsumo
+        y transición sostenible basada en datos urbanos.
       </p>
 
     </div>
@@ -388,10 +482,10 @@
   </section>
 
   <!-- =============================== -->
-  <!-- COMERCIO LOCAL -->
+  <!-- COMERCIO -->
   <!-- =============================== -->
 
-  <section id="comercio" class="sector-section comercio">
+  <section id="comercio" class="sector-section comercio fade-up">
 
     <div class="section-header">
 
@@ -400,7 +494,9 @@
       </h2>
 
       <p>
-        Actividad económica, oportunidades comerciales y zonas dinámicas.
+        Actividad económica,
+        oportunidades comerciales
+        y zonas dinámicas.
       </p>
 
     </div>
@@ -477,16 +573,18 @@
   <!-- INSIGHTS GLOBALES -->
   <!-- =============================== -->
 
-  <section id="global" class="global-section">
+  <section id="global" class="global-section fade-up">
 
     <div class="section-header">
 
       <h2>
-        🧠 Insights Globales
+        🧠 Inteligencia Territorial
       </h2>
 
       <p>
-        Relación entre movilidad, sostenibilidad y actividad económica.
+        Relación entre movilidad,
+        sostenibilidad y actividad económica
+        basada en datos urbanos reales.
       </p>
 
     </div>
@@ -500,7 +598,9 @@
         </strong>
 
         <p>
-          Las zonas con mayor movilidad presentan una mayor actividad económica.
+          Las zonas con mayor movilidad
+          presentan una actividad económica
+          significativamente superior.
         </p>
 
       </div>
@@ -512,7 +612,9 @@
         </strong>
 
         <p>
-          Municipios con mayor presión energética requieren estrategias de transición sostenible.
+          Municipios con mayor presión energética
+          requieren estrategias de transición
+          sostenible más eficientes.
         </p>
 
       </div>
@@ -520,11 +622,13 @@
       <div class="card">
 
         <strong>
-          🌍 Inteligencia territorial
+          🌍 Inteligencia urbana
         </strong>
 
         <p>
-          La integración de datos permite identificar oportunidades urbanas estratégicas.
+          La integración de datos urbanos
+          permite detectar oportunidades
+          estratégicas para Santander.
         </p>
 
       </div>
