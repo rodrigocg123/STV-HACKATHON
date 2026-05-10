@@ -668,17 +668,13 @@ NAV HEADER
 
 .sector-nav {
 
-  display:
-    flex;
+   display: flex;
 
-  align-items:
-    center;
+  flex-direction: column;
 
-  gap:
-    16px;
+  align-items: flex-start;
 
-  flex-wrap:
-    wrap;
+  gap: 16px;
 
 }
 
@@ -710,6 +706,8 @@ NAV HEADER
 
   backdrop-filter:
     blur(10px);
+
+    width: 100%;
 
 }
 

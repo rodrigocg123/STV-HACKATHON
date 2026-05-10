@@ -251,7 +251,6 @@ function updateTimelineMode(
 /* ===============================
 SCROLL HEADER EFFECT
 =============================== */
-
 window.addEventListener(
   "scroll",
   () => {
@@ -260,6 +259,8 @@ window.addEventListener(
       document.querySelector(
         "header"
       );
+
+    if (!header) return;
 
     if (
       window.scrollY > 60
@@ -283,7 +284,6 @@ window.addEventListener(
 
   }
 );
-
 /* ===============================
 SMOOTH SECTION REVEAL
 =============================== */
