@@ -241,39 +241,6 @@
   </div>
 
   <!-- =============================== -->
-  <!-- NFC OVERLAY -->
-  <!-- =============================== -->
-
-  <div id="nfcOverlay" class="nfc-overlay hidden">
-
-    <div class="nfc-modal">
-
-      <div class="nfc-ring"></div>
-
-      <div class="nfc-ring delay"></div>
-
-      <div class="nfc-card">
-
-        💳
-
-      </div>
-
-      <h3>
-        Acerque su tarjeta TUS
-      </h3>
-
-      <p id="nfcStatus">
-
-        Esperando conexión inalámbrica...
-
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <!-- =============================== -->
   <!-- MOVILIDAD -->
   <!-- =============================== -->
 
@@ -360,59 +327,15 @@
     <!-- TRAFFIC TIMELINE -->
 
     <div class="timeline-container">
-
       <div class="timeline-header">
-
-        <h3>
-
-          Estado del tráfico urbano en tiempo real
-
-        </h3>
-
+        <h3>Estado del tráfico urbano en tiempo real</h3>
       </div>
-
       <div class="traffic-live">
-
         <span class="live-dot"></span>
-
-        Actualización urbana cada 15 segundos
-
+        Actualización cada 15 segundos
+        <span id="trafficLastUpdate" style="margin-left:auto; font-size:.75rem; opacity:.6;"></span>
       </div>
-
-      <div class="timeline">
-
-        <button class="timeline-btn active">
-
-          🟢 Centro · Fluido
-
-        </button>
-
-        <button class="timeline-btn">
-
-          🟡 Sardinero · Denso
-
-        </button>
-
-        <button class="timeline-btn">
-
-          🔴 Puerto Chico · Alto tráfico
-
-        </button>
-
-        <button class="timeline-btn">
-
-          🟢 Universidades · Normal
-
-        </button>
-
-        <button class="timeline-btn">
-
-          🟡 Castilla · Moderado
-
-        </button>
-
-      </div>
-
+      <div id="trafficZoneGrid" class="traffic-zone-grid"></div>
     </div>
 
     <!-- FILTROS -->
@@ -447,34 +370,14 @@
 
       <div class="floating-map-kpis">
 
-        <div class="map-kpi">
+        <div class="map-kpi active" id="dynamicKpi">
 
-          <span>
-
-            📍 Zona crítica
-
+          <span id="kpiLabel">
+            🚨 Zona con más tráfico
           </span>
 
-          <strong>
-
+          <strong id="kpiValue">
             Centro
-
-          </strong>
-
-        </div>
-
-        <div class="map-kpi">
-
-          <span>
-
-            🚲 Movilidad sostenible
-
-          </span>
-
-          <strong>
-
-            +22%
-
           </strong>
 
         </div>

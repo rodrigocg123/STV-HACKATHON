@@ -1,186 +1,34 @@
 // ===============================
-// CONFIG MAPA BASE
+// MAPAS STV — inicialización
 // ===============================
 
-const configMapa = {
-
-  center:
+export const mapMovilidad = L.map("mapMovilidad").setView(
   [43.4623, -3.8099],
-
-  zoom:
-  13
-
-};
-
+  10
+  
+);
+mapMovilidad.attributionControl.remove();
+export const mapSostenibilidad = L.map("mapSostenibilidad").setView(
+  [43.4623, -3.8099],
+  10
+);
+mapSostenibilidad.attributionControl.remove();
+export const mapComercio = L.map("mapComercio").setView(
+  [43.4623, -3.8099],
+  10
+);
+mapComercio.attributionControl.remove();
 // ===============================
-// TILE LAYER PREMIUM
+// CAPA BASE
 // ===============================
 
 function crearTileLayer() {
-
   return L.tileLayer(
-
-    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-
-    {
-
-      attribution:
-      "&copy; OpenStreetMap & CARTO",
-
-      subdomains:
-      "abcd",
-
-      maxZoom:
-      20
-
-    }
-
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    { attribution: "&copy; OpenStreetMap contributors" }
   );
-
 }
 
-// ===============================
-// MAPA MOVILIDAD
-// ===============================
-
-export const mapMovilidad = L.map(
-
-  "mapMovilidad",
-
-  {
-
-    zoomControl:
-    false,
-
-    attributionControl:
-    false,
-
-    preferCanvas:
-    true
-
-  }
-
-).setView(
-
-  configMapa.center,
-
-  configMapa.zoom
-
-);
-
-crearTileLayer().addTo(
-  mapMovilidad
-);
-
-L.control.zoom({
-
-  position:
-  "bottomright"
-
-}).addTo(
-  mapMovilidad
-);
-
-// ===============================
-// MAPA SOSTENIBILIDAD
-// ===============================
-
-export const mapSostenibilidad = L.map(
-
-  "mapSostenibilidad",
-
-  {
-
-    zoomControl:
-    false,
-
-    attributionControl:
-    false,
-
-    preferCanvas:
-    true
-
-  }
-
-).setView(
-
-  configMapa.center,
-
-  configMapa.zoom
-
-);
-
-crearTileLayer().addTo(
-  mapSostenibilidad
-);
-
-L.control.zoom({
-
-  position:
-  "bottomright"
-
-}).addTo(
-  mapSostenibilidad
-);
-
-// ===============================
-// MAPA COMERCIO
-// ===============================
-
-export const mapComercio = L.map(
-
-  "mapComercio",
-
-  {
-
-    zoomControl:
-    false,
-
-    attributionControl:
-    false,
-
-    preferCanvas:
-    true
-
-  }
-
-).setView(
-
-  configMapa.center,
-
-  configMapa.zoom
-
-);
-
-crearTileLayer().addTo(
-  mapComercio
-);
-
-L.control.zoom({
-
-  position:
-  "bottomright"
-
-}).addTo(
-  mapComercio
-);
-
-// ===============================
-// AUTO RESIZE
-// ===============================
-
-window.addEventListener(
-
-  "resize",
-
-  () => {
-
-    mapMovilidad.invalidateSize();
-
-    mapSostenibilidad.invalidateSize();
-
-    mapComercio.invalidateSize();
-
-  }
-
-);
+crearTileLayer().addTo(mapMovilidad);
+crearTileLayer().addTo(mapSostenibilidad);
+crearTileLayer().addTo(mapComercio);

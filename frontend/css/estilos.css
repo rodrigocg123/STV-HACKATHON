@@ -1063,80 +1063,65 @@ PULSE EFFECT
 TIMELINE
 =============================== */
 
-.timeline-container {
-
-  margin-bottom:
-    30px;
-
+.traffic-zone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.timeline-header {
-
-  margin-bottom:
-    16px;
-
+.traffic-zone-card {
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition: border-color .3s;
 }
 
-.timeline-header h3 {
-
-  font-size:
-    1rem;
-
-  color:
-    rgba(255, 255, 255, .8);
-
+.traffic-zone-card:hover {
+  border-color: rgba(255, 255, 255, .18);
 }
 
-.timeline {
-
-  display:
-    flex;
-
-  gap:
-    12px;
-
-  flex-wrap:
-    wrap;
-
+.tzc-name {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
 }
 
-.timeline-btn {
-
-  border:
-    1px solid rgba(255, 255, 255, .08);
-
-  background:
-    rgba(255, 255, 255, .04);
-
-  color:
-    white;
-
-  padding:
-    12px 18px;
-
-  border-radius:
-    16px;
-
-  cursor:
-    pointer;
-
-  transition:
-    .3s;
-
-  backdrop-filter:
-    blur(10px);
-
+.tzc-label {
+  font-size: .75rem;
+  margin-bottom: 10px;
 }
 
-.timeline-btn:hover,
-.timeline-btn.active {
+.tzc-bar-bg {
+  background: rgba(255, 255, 255, .08);
+  border-radius: 99px;
+  height: 5px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
 
-  background:
-    rgba(0, 191, 255, .15);
+.tzc-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .8s ease, background .8s ease;
+}
 
-  border-color:
-    rgba(0, 191, 255, .25);
+.tzc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.tzc-pct {
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.tzc-trend {
+  font-size: .7rem;
+  color: rgba(255, 255, 255, .4);
 }
 
 /* ===============================
@@ -1145,17 +1130,12 @@ FILTROS MOVILIDAD
 
 .mobility-filters {
 
-  display:
-    flex;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
 
-  gap:
-    14px;
-
-  flex-wrap:
-    wrap;
-
-  margin-bottom:
-    30px;
+  margin-top: 22px;
+  margin-bottom: 30px;
 
 }
 
@@ -1220,50 +1200,39 @@ FLOATING MAP KPIS
 
 .floating-map-kpis {
 
-  position:
-    absolute;
+  display: flex;
+  overflow-x: auto;
 
-  top:
-    20px;
+  gap: 10px;
 
-  left:
-    20px;
+  padding-bottom: 4px;
 
-  z-index:
-    2000;
-
-  display:
-    flex;
-
-  gap:
-    16px;
+  scrollbar-width: none;
 
 }
 
 .map-kpi {
 
-  min-width:
-    190px;
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
 
-  padding:
-    18px;
+  opacity: 0;
 
-  border-radius:
-    20px;
-
-  background:
-    rgba(10, 15, 30, .75);
-
-  backdrop-filter:
-    blur(18px);
-
-  border:
-    1px solid rgba(255, 255, 255, .08);
-
-  box-shadow:
-    0 10px 35px rgba(0, 0, 0, .25);
+  transform:
+    translateY(10px);
 
 }
+
+.map-kpi.active {
+
+  opacity: 1;
+
+  transform:
+    translateY(0);
+
+}
+
 
 .map-kpi span {
 
@@ -2112,6 +2081,7 @@ RESPONSIVE
 
 }
 
+
 @media (max-width: 768px) {
 
   .mobile-nav {
@@ -2228,17 +2198,57 @@ RESPONSIVE
 
   .floating-map-kpis {
 
-    flex-direction:
-      column;
+    position: absolute;
+
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+
+    top: auto;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 8px;
+
+    justify-content: center;
+
+    z-index: 500;
 
   }
 
   .map-kpi {
 
-    min-width:
-      auto;
+    padding: 8px 12px;
+
+    border-radius: 14px;
+
+    min-width: auto;
+
+    backdrop-filter: blur(10px);
+
+    background: rgba(15, 23, 42, 0.82);
 
   }
+
+  .map-kpi span {
+
+    font-size: .72rem;
+
+    white-space: nowrap;
+
+  }
+
+  .map-kpi strong {
+
+    font-size: .95rem;
+
+    display: block;
+
+    margin-top: 2px;
+
+  }
+
 
 }
 
@@ -2266,6 +2276,14 @@ RESPONSIVE
     border-color:
       rgba(0, 191, 255, .25);
 
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .sector-nav {
+    display: none;
   }
 
 }
@@ -2547,6 +2565,7 @@ URBAN NEWS
   padding-top: 40px;
 
 }
+
 .urban-news .section-header {
 
   margin-bottom: 50px;
