@@ -67,9 +67,11 @@ function animateValue(
       value + suffix;
 
     if (progress < 1) {
+
       window.requestAnimationFrame(
         step
       );
+
     }
 
   };
@@ -87,36 +89,6 @@ ANIMAR KPIs
 window.addEventListener(
   "DOMContentLoaded",
   () => {
-
-    animateValue(
-      document.getElementById(
-        "heroCongestion"
-      ),
-      0,
-      72,
-      1800,
-      "%"
-    );
-
-    animateValue(
-      document.getElementById(
-        "heroSostenibilidad"
-      ),
-      0,
-      84,
-      2200,
-      "%"
-    );
-
-    animateValue(
-      document.getElementById(
-        "heroActividad"
-      ),
-      0,
-      18,
-      2000,
-      "%"
-    );
 
     animateValue(
       document.getElementById(
@@ -180,10 +152,6 @@ timelineButtons.forEach(
           "active"
         );
 
-        updateTimelineMode(
-          button.textContent
-        );
-
       }
     );
 
@@ -191,66 +159,9 @@ timelineButtons.forEach(
 );
 
 /* ===============================
-TIMELINE LOGIC
-=============================== */
-
-function updateTimelineMode(
-  mode
-) {
-
-  const aiPanel =
-    document.querySelector(
-      ".urban-ai"
-    );
-
-  if (!aiPanel) return;
-
-  const insights =
-    aiPanel.querySelectorAll(
-      ".ai-insight"
-    );
-
-  if (
-    mode.includes("Mañana")
-  ) {
-
-    insights[0].innerHTML =
-      "⚠ Incremento de tráfico detectado en accesos escolares.";
-
-    insights[1].innerHTML =
-      "🚌 Refuerzo de movilidad urbana durante primeras horas.";
-
-  }
-
-  if (
-    mode.includes("Tarde")
-  ) {
-
-    insights[0].innerHTML =
-      "🚗 Alta densidad de tráfico prevista en el centro urbano.";
-
-    insights[1].innerHTML =
-      "🏪 Incremento de actividad comercial detectado.";
-
-  }
-
-  if (
-    mode.includes("Noche")
-  ) {
-
-    insights[0].innerHTML =
-      "🌙 Descenso de congestión urbana durante la noche.";
-
-    insights[1].innerHTML =
-      "⚡ Menor presión energética detectada.";
-
-  }
-
-}
-
-/* ===============================
 SCROLL HEADER EFFECT
 =============================== */
+
 window.addEventListener(
   "scroll",
   () => {
@@ -284,6 +195,7 @@ window.addEventListener(
 
   }
 );
+
 /* ===============================
 SMOOTH SECTION REVEAL
 =============================== */
@@ -362,46 +274,6 @@ window.addEventListener(
 );
 
 /* ===============================
-LIVE CLOCK
-=============================== */
-
-function updateLiveClock() {
-
-  const now =
-    new Date();
-
-  const hours =
-    String(
-      now.getHours()
-    ).padStart(2, "0");
-
-  const minutes =
-    String(
-      now.getMinutes()
-    ).padStart(2, "0");
-
-  const liveIndicator =
-    document.querySelector(
-      ".live-indicator"
-    );
-
-  if (!liveIndicator) return;
-
-  liveIndicator.innerHTML = `
-    <span class="live-dot"></span>
-    ${hours}:${minutes} EN DIRECTO
-  `;
-
-}
-
-updateLiveClock();
-
-setInterval(
-  updateLiveClock,
-  1000
-);
-
-/* ===============================
 MOBILE ACTIVE NAV
 =============================== */
 
@@ -419,8 +291,7 @@ window.addEventListener(
   "scroll",
   () => {
 
-    let current =
-      "";
+    let current = "";
 
     sections.forEach(
       (section) => {
@@ -493,85 +364,271 @@ setInterval(
   },
   6000
 );
+
 /* ===============================
-URBAN PULSE TOGGLE
+TUS OVERLAY
 =============================== */
 
-window.addEventListener(
-  "DOMContentLoaded",
+const tusOverlay =
+  document.getElementById(
+    "tusOverlay"
+  );
+
+const openTusMenu =
+  document.getElementById(
+    "openTusMenu"
+  );
+
+const closeTusMenu =
+  document.getElementById(
+    "closeTusMenu"
+  );
+
+const btnCheckSaldo =
+  document.getElementById(
+    "btnCheckSaldo"
+  );
+
+const btnRecargarBus =
+  document.getElementById(
+    "btnRecargarBus"
+  );
+
+const tusContent =
+  document.getElementById(
+    "tusContent"
+  );
+
+// ===============================
+// OPEN
+// ===============================
+
+openTusMenu?.addEventListener(
+  "click",
   () => {
 
-    const togglePulse =
-      document.getElementById(
-        "togglePulse"
-      );
-
-    const urbanPulse =
-      document.getElementById(
-        "urbanPulse"
-      );
-
-    if (
-      !togglePulse ||
-      !urbanPulse
-    ) return;
-
-    togglePulse.addEventListener(
-      "click",
-      () => {
-
-        urbanPulse.classList.toggle(
-          "active"
-        );
-
-      }
+    tusOverlay.classList.remove(
+      "hidden"
     );
 
   }
 );
-const btnBus =
-  document.getElementById(
-    'btnRecargarBus'
-  );
 
-const saldoBus =
-  document.getElementById(
-    'saldoBus'
-  );
+// ===============================
+// CLOSE BUTTON
+// ===============================
 
-if (btnBus) {
+closeTusMenu?.addEventListener(
+  "click",
+  () => {
 
-  btnBus.addEventListener(
-    'click',
-    () => {
+    tusOverlay.classList.add(
+      "hidden"
+    );
 
-      btnBus.innerHTML =
-        'Recargando...';
+  }
+);
 
-      btnBus.disabled = true;
 
-      let cantidad = 8.4;
+// ===============================
+// CLOSE OUTSIDE
+// ===============================
 
-      const interval =
-        setInterval(() => {
+tusOverlay?.addEventListener(
+  "click",
+  (event) => {
 
-          cantidad += 0.35;
+    if (
+      event.target === tusOverlay
+    ) {
 
-          saldoBus.innerHTML =
-            cantidad.toFixed(2) + '€';
-
-        }, 100);
-
-      setTimeout(() => {
-
-        clearInterval(interval);
-
-        btnBus.innerHTML =
-          '✓ Recarga completada';
-
-      }, 2600);
+      tusOverlay.classList.add(
+        "hidden"
+      );
 
     }
-  );
 
-} 
+  }
+);
+
+// ===============================
+// NFC UI
+// ===============================
+
+function renderNFC(texto) {
+
+  tusContent.innerHTML = `
+
+    <div class="nfc-zone">
+
+      <div class="nfc-card-big">
+        💳
+      </div>
+
+      <h3>
+        Acerque su tarjeta
+      </h3>
+
+      <p class="nfc-status">
+        ${texto}
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+// ===============================
+// SALDO
+// ===============================
+
+btnCheckSaldo?.addEventListener(
+  "click",
+  () => {
+
+    renderNFC(
+      "Esperando conexión inalámbrica..."
+    );
+
+    setTimeout(() => {
+
+      const saldo =
+        (
+          Math.random() * 25
+        ).toFixed(2);
+
+      tusContent.innerHTML = `
+
+        <div class="saldo-result">
+
+          <h3>
+            Tarjeta detectada
+          </h3>
+
+          <strong>
+            ${saldo}€
+          </strong>
+
+          <p>
+            Saldo disponible TUS Santander
+          </p>
+
+        </div>
+
+      `;
+
+    }, 5000);
+
+  }
+);
+
+
+/* ===============================
+RECARGAR TARJETA
+=============================== */
+
+btnRecargarBus?.addEventListener(
+  "click",
+  () => {
+
+    renderNFC(
+      "Esperando tarjeta para recarga..."
+    );
+
+    setTimeout(() => {
+
+      const saldoInicial =
+        (
+          Math.random() * 20
+        ).toFixed(2);
+
+      tusContent.innerHTML = `
+
+        <div class="recarga-input">
+
+          <h3>
+            Tarjeta detectada
+          </h3>
+
+          <p>
+
+            Saldo actual:
+            <strong>
+              ${saldoInicial}€
+            </strong>
+
+          </p>
+
+          <input
+            id="cantidadRecarga"
+            type="number"
+            placeholder="Cantidad a recargar"
+          >
+
+          <button id="confirmarRecarga">
+
+            Confirmar recarga
+
+          </button>
+
+        </div>
+
+      `;
+
+      document
+        .getElementById(
+          "confirmarRecarga"
+        )
+        ?.addEventListener(
+          "click",
+          () => {
+
+            const cantidad = parseFloat(
+
+              document.getElementById(
+                "cantidadRecarga"
+              ).value
+
+            ) || 0;
+
+            const nuevoSaldo = (
+
+              parseFloat(saldoInicial) +
+              cantidad
+
+            ).toFixed(2);
+
+            tusContent.innerHTML = `
+
+              <div class="saldo-result">
+
+                <h3>
+
+                  ✓ Recarga completada
+
+                </h3>
+
+                <strong>
+
+                  ${nuevoSaldo}€
+
+                </strong>
+
+                <p>
+
+                  Nuevo saldo disponible
+
+                </p>
+
+              </div>
+
+            `;
+
+          }
+        );
+
+    }, 5000);
+
+  }
+);

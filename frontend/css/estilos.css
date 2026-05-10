@@ -232,8 +232,7 @@ HERO
   position:
     relative;
 
-  height:
-    100vh;
+  height: 100vh;
 
   background:
     linear-gradient(rgba(5, 10, 20, .76),
@@ -485,6 +484,54 @@ HERO
 
 }
 
+.live-status-bar {
+
+  position: absolute;
+
+  right: 7%;
+
+  bottom: 60px;
+
+  display: flex;
+
+  gap: 18px;
+
+  z-index: 5;
+
+}
+
+.live-item {
+
+  min-width: 210px;
+
+  padding: 22px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(10, 15, 30, .72);
+
+  backdrop-filter:
+    blur(12px);
+
+  border:
+    1px solid rgba(255, 255, 255, .08);
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, .25);
+
+  color: white;
+
+  font-weight: 600;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
 /* ===============================
 FLOATING STATS
 =============================== */
@@ -668,7 +715,7 @@ NAV HEADER
 
 .sector-nav {
 
-   display: flex;
+  display: flex;
 
   flex-direction: column;
 
@@ -707,7 +754,7 @@ NAV HEADER
   backdrop-filter:
     blur(10px);
 
-    width: 100%;
+  width: 100%;
 
 }
 
@@ -2195,6 +2242,34 @@ RESPONSIVE
 
 }
 
+@media (max-width: 1400px) {
+
+  .live-status-bar {
+
+    display: none;
+
+  }
+
+  .live-item {
+
+    transition:
+      transform .3s ease,
+      border-color .3s ease;
+
+  }
+
+  .live-item:hover {
+
+    transform:
+      translateY(-4px);
+
+    border-color:
+      rgba(0, 191, 255, .25);
+
+  }
+
+}
+
 /* ===============================
 URBAN PULSE PANEL
 =============================== */
@@ -2338,6 +2413,7 @@ SCROLLBAR
   right: 0;
 
 }
+
 /* ===============================
 SMART SERVICES
 =============================== */
@@ -2371,14 +2447,12 @@ SMART SERVICES
   overflow: hidden;
 
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       #0094ff,
-      #005eff
-    );
+      #005eff);
 
   box-shadow:
-    0 12px 34px rgba(0,94,255,.35);
+    0 12px 34px rgba(0, 94, 255, .35);
 
 }
 
@@ -2391,11 +2465,9 @@ SMART SERVICES
   inset: -40%;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.15),
-      transparent 60%
-    );
+    radial-gradient(circle,
+      rgba(255, 255, 255, .15),
+      transparent 60%);
 
   animation:
     pulseCard 3s infinite;
@@ -2411,11 +2483,9 @@ SMART SERVICES
   border-radius: 12px;
 
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       #ffd166,
-      #ffb703
-    );
+      #ffb703);
 
   margin-bottom: 28px;
 
@@ -2466,9 +2536,22 @@ SMART SERVICES
   }
 
 }
+
 /* ===============================
 URBAN NEWS
 =============================== */
+.urban-news {
+
+  margin-top: 80px;
+
+  padding-top: 40px;
+
+}
+.urban-news .section-header {
+
+  margin-bottom: 50px;
+
+}
 
 .news-grid {
 
@@ -2494,7 +2577,7 @@ URBAN NEWS
   backdrop-filter: blur(10px);
 
   box-shadow:
-    0 12px 34px rgba(0,0,0,.22);
+    0 12px 34px rgba(0, 0, 0, .22);
 
   transition: .3s ease;
 
@@ -2532,6 +2615,470 @@ URBAN NEWS
   line-height: 1.7;
 
   color:
-    rgba(255,255,255,.7);
+    rgba(255, 255, 255, .7);
+
+}
+
+/* ===============================
+SMART ACTIONS
+=============================== */
+
+.smart-actions {
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 20px;
+
+}
+
+/* ===============================
+BUS MENU
+=============================== */
+
+.bus-menu {
+
+  width: 320px;
+
+  padding: 18px;
+
+  border-radius: 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  background:
+    rgba(10, 15, 30, .88);
+
+  border:
+    1px solid rgba(255, 255, 255, .08);
+
+  backdrop-filter:
+    blur(10px);
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, .28);
+
+  animation:
+    fadeMenu .35s ease;
+
+}
+
+.bus-option {
+
+  border: none;
+
+  padding: 18px 22px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, .05);
+
+  color: white;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .3s ease;
+
+  text-align: left;
+
+}
+
+.bus-option:hover {
+
+  background:
+    rgba(0, 191, 255, .14);
+
+  transform:
+    translateX(4px);
+
+}
+
+@keyframes fadeMenu {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(-10px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+/* ===============================
+TUS OVERLAY
+=============================== */
+
+.tus-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(0, 0, 0, .72);
+
+  backdrop-filter:
+    blur(8px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 999999;
+
+  opacity: 1;
+
+  visibility: visible;
+
+  transition:
+    opacity .3s ease,
+    visibility .3s ease;
+
+}
+
+.tus-overlay.hidden {
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+}
+
+/* ===============================
+TUS MODAL
+=============================== */
+
+.tus-modal {
+
+  position: relative;
+
+  width: 520px;
+
+  max-width: 92%;
+
+  padding: 34px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(180deg,
+      #0b1628,
+      #101d2f);
+
+  border:
+    1px solid rgba(255, 255, 255, .08);
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, .35);
+
+}
+
+/* ===============================
+HEADER
+=============================== */
+
+.tus-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+
+}
+
+.tus-header h2 {
+
+  font-size: 1.7rem;
+
+}
+
+.tus-header button {
+
+  border: none;
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background:
+    rgba(255, 255, 255, .08);
+
+  color: white;
+
+}
+
+/* ===============================
+OPTIONS
+=============================== */
+
+.tus-options {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+
+}
+
+.tus-options button {
+
+  border: none;
+
+  padding: 22px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255, 255, 255, .05);
+
+  color: white;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .3s ease;
+
+}
+
+.tus-options button:hover {
+
+  background:
+    rgba(0, 191, 255, .14);
+
+  transform:
+    translateY(-4px);
+
+}
+
+/* ===============================
+CONTENT
+=============================== */
+
+#tusContent {
+
+  min-height: 240px;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  background:
+    rgba(255, 255, 255, .03);
+
+}
+
+/* ===============================
+NFC
+=============================== */
+
+.nfc-zone {
+
+  text-align: center;
+
+  padding: 30px;
+
+}
+
+.nfc-card-big {
+
+  width: 140px;
+
+  height: 140px;
+
+  margin: 0 auto 24px;
+
+  border-radius: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 4rem;
+
+  background:
+    linear-gradient(135deg,
+      #0094ff,
+      #005eff);
+
+  animation:
+    floatCard 2s infinite;
+
+}
+
+.nfc-status {
+
+  margin-top: 18px;
+
+  color:
+    rgba(255, 255, 255, .7);
+
+}
+
+/* ===============================
+RESULT
+=============================== */
+
+.saldo-result {
+
+  text-align: center;
+
+  padding: 20px;
+
+}
+
+.saldo-result strong {
+
+  display: block;
+
+  font-size: 4rem;
+
+  margin-top: 24px;
+
+}
+
+/* ===============================
+INPUT
+=============================== */
+
+.recarga-input {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+.recarga-input input {
+
+  padding: 18px;
+
+  border-radius: 18px;
+
+  border: none;
+
+  background:
+    rgba(255, 255, 255, .08);
+
+  color: white;
+
+  font-size: 1.2rem;
+
+}
+
+.recarga-input button {
+
+  border: none;
+
+  padding: 18px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(135deg,
+      #0094ff,
+      #005eff);
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+}
+
+@keyframes fadeTus {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      none;
+
+  }
+
+}
+
+#closeTusMenu {
+
+  position: absolute;
+
+  top: 18px;
+
+  right: 18px;
+
+  width: 42px;
+
+  height: 42px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, .08);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  z-index: 9999999;
 
 }

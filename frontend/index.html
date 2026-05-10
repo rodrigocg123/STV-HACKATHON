@@ -3,10 +3,6 @@
 
 <head>
 
-  <!-- =============================== -->
-  <!-- META -->
-  <!-- =============================== -->
-
   <meta charset="UTF-8" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,15 +11,9 @@
     Santander Tiene Vida
   </title>
 
-  <!-- =============================== -->
-  <!-- FAVICON -->
-  <!-- =============================== -->
-
   <link rel="icon" type="image/png" href="./assets/images/favicon.png" />
 
-  <!-- =============================== -->
   <!-- GOOGLE FONTS -->
-  <!-- =============================== -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -31,46 +21,26 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- =============================== -->
-  <!-- LEAFLET CSS -->
-  <!-- =============================== -->
+  <!-- LEAFLET -->
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-  <!-- =============================== -->
-  <!-- MOUSE POSITION CSS -->
-  <!-- =============================== -->
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.css" />
 
-  <!-- =============================== -->
-  <!-- ESTILOS APP -->
-  <!-- =============================== -->
+  <!-- CSS -->
 
   <link rel="stylesheet" href="./css/estilos.css" />
 
-  <!-- =============================== -->
-  <!-- LEAFLET JS -->
-  <!-- =============================== -->
+  <!-- LEAFLET -->
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <!-- =============================== -->
-  <!-- MOUSE POSITION -->
-  <!-- =============================== -->
-
   <script src="https://unpkg.com/leaflet-mouse-position@1.0.1/src/L.Control.MousePosition.js"></script>
-
-  <!-- =============================== -->
-  <!-- POLYLINE DECORATOR -->
-  <!-- =============================== -->
 
   <script
     src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
 
-  <!-- =============================== -->
   <!-- PROJ4 -->
-  <!-- =============================== -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
 
@@ -83,15 +53,11 @@
 
   </script>
 
-  <!-- =============================== -->
   <!-- HEATMAP -->
-  <!-- =============================== -->
 
   <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 
-  <!-- =============================== -->
   <!-- PAPAPARSE -->
-  <!-- =============================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -128,15 +94,18 @@
     <div class="hero-content fade-up">
 
       <h1>
-        Santander Tiene Vida
+        Centro Inteligente Urbano de Santander
       </h1>
 
       <p>
-        Plataforma inteligente de movilidad,
-        sostenibilidad y actividad económica
+        Movilidad, sostenibilidad,
+        turismo y servicios urbanos
+        conectados en tiempo real
         para una Santander más eficiente,
         accesible y sostenible.
       </p>
+
+      <!-- HERO ACTIONS -->
 
       <div class="hero-actions">
 
@@ -144,9 +113,16 @@
           Explorar ciudad
         </button>
 
+        <button id="openTusMenu" class="hero-secondary-btn">
+          🚍 Servicio TUS
+        </button>
+
+
       </div>
 
     </div>
+
+    <!-- HERO NAV -->
 
     <nav class="sector-nav">
 
@@ -167,64 +143,136 @@
       </a>
 
     </nav>
+    <!-- =============================== -->
+    <!-- LIVE STATUS BAR -->
+    <!-- =============================== -->
 
-    </div>
-
-
-    </div>
-
+    <section class="live-status-bar">
+      <div class="live-item">
+        <span class="live-dot"></span>
+        Tráfico urbano estable
+      </div>
+      <div class="live-item">
+        ⚡ Consumo energético moderado
+      </div>
+      <div class="live-item">
+        🚍 Servicios TUS operativos
+      </div>
+      <div class="live-item">
+        🌱 Calidad del aire favorable
+      </div>
+    </section>
   </section>
 
-  <!-- SMART SERVICES -->
-  <section class="smart-services sector-section">
+  <!-- =============================== -->
+  <!-- TUS OVERLAY -->
+  <!-- =============================== -->
 
-    <div class="section-header">
+  <div id="tusOverlay" class="tus-overlay hidden">
 
-      <div class="section-badge">
-        ⚡ SMART SERVICES
+    <div class="tus-modal">
+
+      <!-- HEADER -->
+
+      <div class="tus-header">
+
+        <h2>
+
+          🚍 Servicios TUS Santander
+
+        </h2>
+
+        <button id="closeTusMenu" type="button">
+
+          ✕
+
+        </button>
+
       </div>
 
-      <h2>
-        Servicios Urbanos Inteligentes
-      </h2>
+      <!-- OPTIONS -->
 
-      <p>
-        Integración digital de movilidad y experiencia ciudadana.
+      <div class="tus-options">
+
+        <button id="btnCheckSaldo">
+
+          💳 Revisar saldo
+
+        </button>
+
+        <button id="btnRecargarBus">
+
+          ⚡ Recargar tarjeta
+
+        </button>
+
+      </div>
+
+      <!-- CONTENT -->
+
+      <div id="tusContent">
+
+        <div class="tus-placeholder">
+
+          <div class="placeholder-icon">
+
+            🚍
+
+          </div>
+
+          <h3>
+
+            Sistema Inteligente TUS
+
+          </h3>
+
+          <p>
+
+            Acceda a servicios digitales de movilidad urbana.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =============================== -->
+  <!-- NFC OVERLAY -->
+  <!-- =============================== -->
+
+  <div id="nfcOverlay" class="nfc-overlay hidden">
+
+    <div class="nfc-modal">
+
+      <div class="nfc-ring"></div>
+
+      <div class="nfc-ring delay"></div>
+
+      <div class="nfc-card">
+
+        💳
+
+      </div>
+
+      <h3>
+        Acerque su tarjeta TUS
+      </h3>
+
+      <p id="nfcStatus">
+
+        Esperando conexión inalámbrica...
+
       </p>
 
     </div>
 
-    <section class="smart-card-section fade-up">
+  </div>
 
-      <div class="bus-card">
 
-        <div class="bus-chip"></div>
-
-        <span class="card-label">
-          TUS Santander
-        </span>
-
-        <h3>
-          Tarjeta Inteligente
-        </h3>
-
-        <strong id="saldoBus">
-          8.40€
-        </strong>
-
-        <p>
-          Recarga urbana wireless activa
-        </p>
-
-      </div>
-
-      <button id="btnRecargarBus" class="hero-btn">
-        ⚡ Recargar Wireless
-      </button>
-
-    </section>
-
-  </section>
   <!-- =============================== -->
   <!-- MOVILIDAD -->
   <!-- =============================== -->
@@ -240,13 +288,17 @@
       </div>
 
       <h2>
+
         Movilidad Inteligente
+
       </h2>
 
       <p>
+
         Monitorización del tráfico urbano,
         congestión y zonas de alta presión
         en Santander y alrededores.
+
       </p>
 
     </div>
@@ -258,11 +310,15 @@
       <div class="kpi pulse">
 
         <span>
+
           🚦 Congestión urbana
+
         </span>
 
         <strong id="kpiCongestion">
+
           72%
+
         </strong>
 
       </div>
@@ -270,11 +326,15 @@
       <div class="kpi">
 
         <span>
+
           🚗 Flujo de tráfico
+
         </span>
 
         <strong id="kpiFlujo">
+
           +18%
+
         </strong>
 
       </div>
@@ -282,49 +342,80 @@
       <div class="kpi">
 
         <span>
+
           🔥 Zonas críticas
+
         </span>
 
         <strong id="kpiZonas">
+
           14
+
         </strong>
 
       </div>
 
     </div>
 
-
-    <!-- TIMELINE -->
+    <!-- TRAFFIC TIMELINE -->
 
     <div class="timeline-container">
 
       <div class="timeline-header">
 
         <h3>
-          🕒 Actividad urbana temporal
+
+          Estado del tráfico urbano en tiempo real
+
         </h3>
+
+      </div>
+
+      <div class="traffic-live">
+
+        <span class="live-dot"></span>
+
+        Actualización urbana cada 15 segundos
 
       </div>
 
       <div class="timeline">
 
         <button class="timeline-btn active">
-          🌅 Mañana
+
+          🟢 Centro · Fluido
+
         </button>
 
         <button class="timeline-btn">
-          ☀️ Tarde
+
+          🟡 Sardinero · Denso
+
         </button>
 
         <button class="timeline-btn">
-          🌙 Noche
+
+          🔴 Puerto Chico · Alto tráfico
+
+        </button>
+
+        <button class="timeline-btn">
+
+          🟢 Universidades · Normal
+
+        </button>
+
+        <button class="timeline-btn">
+
+          🟡 Castilla · Moderado
+
         </button>
 
       </div>
 
     </div>
 
-    <!-- FILTROS MOVILIDAD -->
+    <!-- FILTROS -->
 
     <div class="mobility-filters">
 
@@ -354,18 +445,20 @@
 
     <div class="map-wrapper">
 
-      <!-- FLOATING MAP KPIS -->
-
       <div class="floating-map-kpis">
 
         <div class="map-kpi">
 
           <span>
+
             📍 Zona crítica
+
           </span>
 
           <strong>
+
             Centro
+
           </strong>
 
         </div>
@@ -373,18 +466,20 @@
         <div class="map-kpi">
 
           <span>
+
             🚲 Movilidad sostenible
+
           </span>
 
           <strong>
+
             +22%
+
           </strong>
 
         </div>
 
       </div>
-
-      <!-- MAPA -->
 
       <div id="mapMovilidad" class="sector-map"></div>
 
@@ -397,12 +492,16 @@
       <div class="card">
 
         <strong>
+
           ⚠ Congestión detectada
+
         </strong>
 
         <p>
+
           Identificadas zonas con alta intensidad
           de tráfico en Santander centro y accesos urbanos.
+
         </p>
 
       </div>
@@ -410,12 +509,16 @@
       <div class="card">
 
         <strong>
+
           🚲 Movilidad sostenible
+
         </strong>
 
         <p>
+
           La movilidad ciclista muestra
           crecimiento en corredores urbanos clave.
+
         </p>
 
       </div>
@@ -423,18 +526,66 @@
       <div class="card">
 
         <strong>
+
           🧠 Predicción urbana
+
         </strong>
 
         <p>
+
           Se prevé incremento de presión
           urbana durante las próximas horas.
+
         </p>
 
       </div>
 
     </div>
 
+  </section>
+
+  <!-- =============================== -->
+  <!-- TURISMO URBANO -->
+  <!-- =============================== -->
+
+  <section class="tourism-section sector-section">
+    <div class="section-header">
+      <div class="section-badge">
+        🏖️ TURISMO URBANO
+      </div>
+      <h2>
+        Santander en tiempo real
+      </h2>
+      <p>
+        Actividad urbana y puntos turísticos conectados mediante inteligencia territorial.
+      </p>
+    </div>
+    <div class="insights-box">
+      <div class="card">
+        <strong>
+          🏟️ Evento deportivo activo
+        </strong>
+        <p>
+          Incremento de movilidad detectado en las inmediaciones del estadio del Racing.
+        </p>
+      </div>
+      <div class="card">
+        <strong>
+          🏖️ Alta ocupación turística
+        </strong>
+        <p>
+          Sardinero y Magdalena registran elevada actividad peatonal.
+        </p>
+      </div>
+      <div class="card">
+        <strong>
+          🚢 Actividad marítima urbana
+        </strong>
+        <p>
+          Puerto Chico y Paseo Pereda muestran aumento de actividad turística.
+        </p>
+      </div>
+    </div>
   </section>
 
   <!-- =============================== -->
@@ -590,46 +741,6 @@
       </p>
 
     </div>
-    <!-- URBAN NEWS SOSTENIBILIDAD-->
-    <section class="urban-news sector-section">
-
-      <div class="section-header">
-
-        <div class="section-badge">
-          🧠 URBAN NEWS AI
-        </div>
-
-        <h2>
-          Noticias Urbanas Inteligentes
-        </h2>
-
-        <p>
-          Información dinámica basada en movilidad, actividad urbana y sostenibilidad.
-        </p>
-
-      </div>
-
-      <div class="news-grid">
-
-        <article class="news-card">
-
-          <span>
-            🌱 Sostenibilidad
-          </span>
-
-          <h3>
-            Mejora energética detectada en Camargo
-          </h3>
-
-          <p>
-            Reducción del consumo urbano en horas punta.
-          </p>
-
-        </article>
-
-      </div>
-
-    </section>
 
   </section>
 
@@ -726,78 +837,78 @@
     </div>
 
   </section>
-  <!-- URBAN NEWS MOVILIDAD-->
-    <section class="urban-news sector-section">
 
-      <div class="section-header">
+  <!-- =============================== -->
+  <!-- URBAN NEWS AI -->
+  <!-- =============================== -->
 
-        <div class="section-badge">
-          🧠 URBAN NEWS AI
-        </div>
+  <section class="urban-news">
 
-        <h2>
-          Noticias Urbanas Inteligentes
-        </h2>
+    <div class="section-header">
+
+      <h2>
+        Noticias Urbanas Inteligentes
+      </h2>
+
+      <p>
+        Información dinámica basada en movilidad, actividad urbana y sostenibilidad.
+      </p>
+
+    </div>
+
+    <div class="news-grid">
+
+      <article class="news-card">
+
+        <span>
+          🚦 Movilidad
+        </span>
+
+        <h3>
+          Alta congestión prevista en el Sardinero
+        </h3>
 
         <p>
-          Información dinámica basada en movilidad, actividad urbana y sostenibilidad.
+          Incremento de tráfico detectado por evento deportivo.
         </p>
 
-      </div>
+      </article>
 
-      <div class="news-grid">
+      <article class="news-card">
 
-        <article class="news-card">
+        <span>
+          🌱 Sostenibilidad
+        </span>
 
-          <span>
-            🚦 Movilidad
-          </span>
+        <h3>
+          Mejora energética detectada en Camargo
+        </h3>
 
-          <h3>
-            Alta congestión prevista en el Sardinero
-          </h3>
+        <p>
+          Reducción del consumo urbano en horas punta.
+        </p>
 
-          <p>
-            Incremento de tráfico detectado por evento deportivo.
-          </p>
+      </article>
 
-        </article>
+      <article class="news-card">
 
-        <article class="news-card">
+        <span>
+          🏪 Comercio
+        </span>
 
-          <span>
-            🌱 Sostenibilidad
-          </span>
+        <h3>
+          Incremento comercial en Puerto Chico
+        </h3>
 
-          <h3>
-            Mejora energética detectada en Camargo
-          </h3>
+        <p>
+          Aumento de actividad urbana y turismo.
+        </p>
 
-          <p>
-            Reducción del consumo urbano en horas punta.
-          </p>
+      </article>
 
-        </article>
+    </div>
 
-        <article class="news-card">
-
-          <span>
-            🏪 Comercio
-          </span>
-
-          <h3>
-            Incremento comercial en Puerto Chico
-          </h3>
-
-          <p>
-            Aumento de actividad urbana y turismo.
-          </p>
-
-        </article>
-
-      </div>
-
-    </section>
+  </section>
 
 
   <!-- =============================== -->
