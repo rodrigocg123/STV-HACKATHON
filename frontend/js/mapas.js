@@ -4,9 +4,12 @@
 
 export const mapMovilidad = L.map("mapMovilidad").setView(
   [43.4623, -3.8099],
-  10
+  13
   
 );
+mapMovilidad.on("click", (e) => {
+  console.log(e.latlng);
+});
 mapMovilidad.attributionControl.remove();
 export const mapSostenibilidad = L.map("mapSostenibilidad").setView(
   [43.4623, -3.8099],

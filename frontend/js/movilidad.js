@@ -12,6 +12,7 @@ const capaPMR = L.layerGroup();
 const capaZBE = L.layerGroup();
 const capaCamarasZBE = L.layerGroup();
 const capaHeatMovilidad = L.layerGroup();
+const capaPOI = L.layerGroup();
 
 // ===============================
 // ICONOS
@@ -327,13 +328,60 @@ window.addEventListener("DOMContentLoaded", () => {
   toggleMultipleLayers("btnBici", [capaBici, capaCarrilBici]);
   toggleMultipleLayers("btnCoche", [capaZBE, capaCamarasZBE]);
 });
+// ===============================
+// PUNTOS DE INTERES
+// ===============================
+const puntosInteres = [
+  {
+    nombre: "Ayuntamiento",
+    coords: [43.46230464020074, -3.809933251345217],
+  },
+  {
+    nombre: "Catedral",
+    coords: [43.460673930663006, -3.8073161220027756],
+  },
+  {
+    nombre: "Centro Botín",
+    coords: [43.460375514987604, -3.8041150260390952],
+  },
+  {
+    nombre: "Jardines de Pereda",
+    coords: [43.461208476740836, -3.8050582060837606],
+  },
+  {
+    nombre: "Parque de las Llamas",
+    coords: [43.47396400306918, -3.801076115841891],
+  },
+  {
+    nombre: "Campos de Sport del Sardinero",
+    coords: [43.47628397552997, -3.793371464424469],
+  },
+  {
+    nombre: "La Magdalena",
+    coords: [43.46940645398475, -3.769502662499196],
+  },
+  {
+    nombre: "El Sardinero",
+    coords: [43.473190903651954, -3.783393133883271],
+  },
+];
 
+puntosInteres.forEach((poi) => {
+  L.marker(poi.coords)
+    .bindPopup(
+      crearPopup({
+        color: "#00bfff",
+        titulo: `📍 ${poi.nombre}`,
+        contenido: "<p>Punto de interés urbano.</p>",
+      })
+    )
+    .addTo(capaPOI);
+});
 // ===============================
 // CAPAS ACTIVAS AL INICIO
 // ===============================
+mapMovilidad.addLayer(capaPOI);
 
-mapMovilidad.addLayer(capaCarrilBici);
-mapMovilidad.addLayer(capaBici);
 
 const kpis = [
 
