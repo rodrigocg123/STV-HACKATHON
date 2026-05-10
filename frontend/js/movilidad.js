@@ -1,4 +1,9 @@
 import { mapMovilidad } from "./mapas.js";
+import {
+  calcularScoreMovilidad,
+  generarRecomendacionMovilidad,
+  obtenerColorScore
+} from "./Logica.js";
 
 // ===============================
 // CAPAS
@@ -437,3 +442,121 @@ function actualizarKpiDinamico() {
 actualizarKpiDinamico();
 
 setInterval(actualizarKpiDinamico, 3500);
+// ===============================
+// ZONAS SMART
+// ===============================
+
+const zonasSmart = [
+
+  {
+    nombre: "Centro",
+    coords: [43.4623, -3.8099],
+    trafico: 92,
+    bici: 40,
+    bus: 85,
+    recarga: 65
+  },
+
+  {
+    nombre: "Sardinero",
+    coords: [43.4731, -3.7833],
+    trafico: 45,
+    bici: 90,
+    bus: 70,
+    recarga: 55
+  },
+
+  {
+    nombre: "Castilla-Hermida",
+    coords: [43.4568, -3.8222],
+    trafico: 88,
+    bici: 35,
+    bus: 75,
+    recarga: 40
+  },
+
+  {
+    nombre: "Puertochico",
+    coords: [43.4628, -3.7964],
+    trafico: 60,
+    bici: 72,
+    bus: 80,
+    recarga: 82
+  }
+
+];
+
+zonasSmart.forEach((zona) => {
+
+  zona.score =
+    calcularScoreMovilidad(zona);
+
+  zona.recomendacion =
+    generarRecomendacionMovilidad(zona);
+
+});
+
+// ===============================
+// RENDER SMART ZONES
+// ===============================
+
+zonasSmart.forEach((zona) => {
+
+  L.circle(zona.coords, {
+
+    radius: 450,
+
+    color:
+      obtenerColorScore(zona.score),
+
+    fillColor:
+      obtenerColorScore(zona.score),
+
+    fillOpacity: 0.35,
+
+    weight: 2
+
+  })
+
+  .bindPopup(
+
+    crearPopup({
+
+      color:
+        obtenerColorScore(zona.score),
+
+      titulo:
+        `🧠 ${zona.nombre}`,
+
+      contenido: `
+
+        <p>
+          Score movilidad:
+          <strong>${zona.score}/100</strong>
+        </p>
+
+        <p>
+          Estado:
+          <strong>${zona.recomendacion.tipo}</strong>
+        </p>
+
+        <p>
+          ${zona.recomendacion.motivo}
+        </p>
+
+        <hr>
+
+        <p>
+          🌱 Impacto estimado:
+          <strong>${zona.recomendacion.ahorro}</strong>
+        </p>
+
+      `
+
+    })
+
+  )
+
+  .addTo(mapMovilidad);
+
+});
