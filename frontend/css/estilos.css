@@ -2338,3 +2338,200 @@ SCROLLBAR
   right: 0;
 
 }
+/* ===============================
+SMART SERVICES
+=============================== */
+
+.smart-card-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 30px;
+
+  padding: 80px 0;
+
+}
+
+.bus-card {
+
+  width: 360px;
+
+  padding: 36px;
+
+  border-radius: 30px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0094ff,
+      #005eff
+    );
+
+  box-shadow:
+    0 12px 34px rgba(0,94,255,.35);
+
+}
+
+.bus-card::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -40%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.15),
+      transparent 60%
+    );
+
+  animation:
+    pulseCard 3s infinite;
+
+}
+
+.bus-chip {
+
+  width: 70px;
+
+  height: 50px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffd166,
+      #ffb703
+    );
+
+  margin-bottom: 28px;
+
+}
+
+.card-label {
+
+  display: block;
+
+  margin-bottom: 14px;
+
+  opacity: .8;
+
+}
+
+.bus-card h3 {
+
+  font-size: 2rem;
+
+  margin-bottom: 24px;
+
+}
+
+#saldoBus {
+
+  display: block;
+
+  font-size: 4rem;
+
+  font-weight: 800;
+
+  margin-bottom: 18px;
+
+}
+
+@keyframes pulseCard {
+
+  0% {
+    transform: scale(.8);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(.8);
+  }
+
+}
+/* ===============================
+URBAN NEWS
+=============================== */
+
+.news-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 24px;
+
+}
+
+.news-card {
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.22);
+
+  transition: .3s ease;
+
+}
+
+.news-card:hover {
+
+  transform:
+    translateY(-5px);
+
+}
+
+.news-card span {
+
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  color: var(--blue);
+
+  font-weight: 700;
+
+}
+
+.news-card h3 {
+
+  margin-bottom: 16px;
+
+  font-size: 1.4rem;
+
+}
+
+.news-card p {
+
+  line-height: 1.7;
+
+  color:
+    rgba(255,255,255,.7);
+
+}

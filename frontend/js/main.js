@@ -529,3 +529,49 @@ window.addEventListener(
 
   }
 );
+const btnBus =
+  document.getElementById(
+    'btnRecargarBus'
+  );
+
+const saldoBus =
+  document.getElementById(
+    'saldoBus'
+  );
+
+if (btnBus) {
+
+  btnBus.addEventListener(
+    'click',
+    () => {
+
+      btnBus.innerHTML =
+        'Recargando...';
+
+      btnBus.disabled = true;
+
+      let cantidad = 8.4;
+
+      const interval =
+        setInterval(() => {
+
+          cantidad += 0.35;
+
+          saldoBus.innerHTML =
+            cantidad.toFixed(2) + '€';
+
+        }, 100);
+
+      setTimeout(() => {
+
+        clearInterval(interval);
+
+        btnBus.innerHTML =
+          '✓ Recarga completada';
+
+      }, 2600);
+
+    }
+  );
+
+} 

@@ -204,7 +204,86 @@ capaHeatMovilidad.addLayer(
 mapMovilidad.addLayer(
   capaHeatMovilidad
 );
+// ===============================
+// PUNTOS TURÍSTICOS
+// ===============================
 
+const puntosTuristicos = [
+
+  {
+    nombre: "Ayuntamiento",
+    coords: [43.4623, -3.8099],
+    icono: "🏛️"
+  },
+
+  {
+    nombre: "Sardinero",
+    coords: [43.4769, -3.7831],
+    icono: "🏖️"
+  },
+
+  {
+    nombre: "Palacio Magdalena",
+    coords: [43.4737, -3.7565],
+    icono: "🏰"
+  },
+
+  {
+    nombre: "Campo Racing",
+    coords: [43.4702, -3.8072],
+    icono: "⚽"
+  },
+
+  {
+    nombre: "Centro Botín",
+    coords: [43.4627, -3.7985],
+    icono: "🎨"
+  },
+
+  {
+    nombre: "Puerto Chico",
+    coords: [43.4621, -3.7908],
+    icono: "⚓"
+  }
+
+];
+
+// ===============================
+// RENDER TURISMO
+// ===============================
+
+function renderTurismo(map) {
+
+  puntosTuristicos.forEach(
+    punto => {
+
+      L.marker(
+        punto.coords,
+        {
+          icon: L.divIcon({
+            className: 'tourism-marker',
+            html: `
+              <div class="tourism-pin">
+                ${punto.icono}
+              </div>
+            `,
+            iconSize: [34, 34]
+          })
+        }
+      )
+      .addTo(map)
+      .bindPopup(
+        `
+          <strong>
+            ${punto.nombre}
+          </strong>
+        `
+      );
+
+    }
+  );
+
+}
 // ===============================
 // FETCH BUS
 // ===============================
