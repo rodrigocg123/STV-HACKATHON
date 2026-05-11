@@ -3188,3 +3188,86 @@ ASISTENTE COMING SOON
   line-height: 1.7;
 
 }
+.map-filters {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-filters button {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(0, 207, 255, 0.3);
+  color: white;
+
+  padding: 10px 16px;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+
+  transition: all 0.3s ease;
+}
+
+.map-filters button:hover {
+  background: #00cfff;
+  color: #08101e;
+  transform: translateY(-2px);
+}
+.map-wrapper-comercio {
+  position: relative;
+}
+
+.map-wrapper-comercio .map-filters {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.map-wrapper-comercio .map-filters button {
+  background: rgba(15, 23, 42, 0.92);
+
+  border: 1px solid rgba(0, 207, 255, 0.25);
+
+  color: white;
+
+  padding: 10px 16px;
+
+  border-radius: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 20px rgba(0, 207, 255, 0.08);
+}
+
+.map-wrapper-comercio .map-filters button:hover {
+  background: #00cfff;
+
+  color: #08101e;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 25px rgba(0, 207, 255, 0.35);
+}

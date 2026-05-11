@@ -7,8 +7,6 @@ export const mapMovilidad = L.map("mapMovilidad").setView(
   13
 
 );
-
-//click y coordenadas
 mapMovilidad.on("click", (e) => {
   console.log(e.latlng);
 });
@@ -25,6 +23,9 @@ export const mapComercio = L.map("mapComercio").setView(
   [43.4623, -3.8099],
   10
 );
+mapComercio.on("click", (e) => {
+  console.log(e.latlng);
+});
 mapComercio.attributionControl.remove();
 
 // ===============================
